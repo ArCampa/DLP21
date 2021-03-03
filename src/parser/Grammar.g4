@@ -3,9 +3,6 @@ import Lexicon;
 
 start: definicion* EOF;
 
-//definición temporal
-cosas: LITENT | LITREAL | CHAR;
-
 //definición de variables
 tipo:
 	'int'
@@ -19,6 +16,32 @@ defVar: 'var' IDENT ':' tipo ';';
 defStruct:;
 
 //definicion de funciones
-defFunc:;
+defFunc:
+	IDENT '(' (IDENT ':' tipo (',' IDENT ':' tipo)*)* ')' ':' tipo '{' (
+		sentencia
+	)* '}'; //
 
 definicion: defVar | defStruct | defFunc;
+
+asignacion: IDENT '=' IDENT | IDENT = expr;
+
+operador:
+	'+'
+	| '-'
+	| '*'
+	| '/'
+	| '<'
+	| '>'
+	| '=='
+	| '<='
+	| '>='
+	| '!='
+	| '&&'
+	| '||';
+
+expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr; //
+
+condicional:
+	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}';
+
+sentencia: defVar | asignacion | condicional;
