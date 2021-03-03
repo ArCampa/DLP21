@@ -23,7 +23,7 @@ defFunc:
 
 definicion: defVar | defStruct | defFunc;
 
-asignacion: IDENT '=' IDENT | IDENT = expr;
+asignacion: IDENT '=' IDENT | IDENT '=' expr;
 
 operador:
 	'+'
@@ -39,9 +39,10 @@ operador:
 	| '&&'
 	| '||';
 
-expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr; //
+expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr | '<' tipo '>' IDENT; //
 
 condicional:
-	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}';
+	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}'
+	| 'while' '(' expr ')' '{' sentencia* '}';
 
 sentencia: defVar | asignacion | condicional;
