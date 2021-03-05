@@ -13,17 +13,17 @@ tipo:
 defVar: 'var' IDENT ':' tipo ';';
 
 //definición de estructuras
-defStruct:;
+defStruct: 'struct' IDENT '{' sentencia '}';
 
 //definicion de funciones
 defFunc:
-	IDENT '(' (IDENT ':' tipo (',' IDENT ':' tipo)*)* ')' ':' tipo '{' (
+	IDENT '(' (IDENT ':' tipo (',' IDENT ':' tipo)*)* ')' (':' tipo)? '{' (
 		sentencia
 	)* '}'; //
 
 definicion: defVar | defStruct | defFunc;
 
-asignacion: IDENT '=' IDENT | IDENT '=' expr;
+asignacion: IDENT '=' IDENT ';' | IDENT '=' expr ';';
 
 operador:
 	'+'
@@ -39,10 +39,24 @@ operador:
 	| '&&'
 	| '||';
 
-expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr | '<' tipo '>' IDENT; //
+expr:
+	CHAR
+	| LITENT
+	| LITREAL
+	| IDENT
+	| expr operador expr
+	| '<' tipo '>' IDENT
+	| '(' expr ')'
+	| IDENT '(' (expr (',' expr)*)* ')'; //
 
 condicional:
 	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}'
 	| 'while' '(' expr ')' '{' sentencia* '}';
 
-sentencia: defVar | asignacion | condicional;
+sentencia:
+	defVar
+	| asignacion
+	| condicional
+	| keyword expr ';';
+
+keyword: 'println'|'printsp'|'return'|'read';
