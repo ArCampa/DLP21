@@ -17,9 +17,9 @@ defStruct: 'struct' IDENT '{' sentencia '}';
 
 //definicion de funciones
 defFunc:
-	IDENT '(' (IDENT ':' tipo (',' IDENT ':' tipo)*)* ')' (':' tipo)? '{' (
-		sentencia
-	)* '}'; //
+	IDENT '(' (IDENT ':' tipo (',' IDENT ':' tipo)*)* ')' (
+		':' tipo
+	)? '{' (sentencia)* '}'; //
 
 definicion: defVar | defStruct | defFunc;
 
@@ -57,6 +57,8 @@ sentencia:
 	defVar
 	| asignacion
 	| condicional
-	| keyword expr ';';
+	| ('println' | 'printsp') expr ';'
+	| 'return' expr ';'
+	| 'read' expr ';';
 
-keyword: 'println'|'printsp'|'return'|'read';
+// keyword: 'println'|'printsp'|'return'|'read'|'load';
