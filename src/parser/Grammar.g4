@@ -50,7 +50,8 @@ expr:
 	| IDENT '(' (expr (',' expr)*)* ')'; //
 
 condicional:
-	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}';
+	'if' '(' expr ')' '{' sentencia* '}' 'else' '{' sentencia* '}'
+	|'while' '('expr')''{'sentencia*'}';
 
 sentencia:
 	defVar
