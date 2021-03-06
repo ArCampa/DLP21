@@ -20,9 +20,14 @@ public class GrammarLexer extends Lexer {
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, LITENT=35, LITREAL=36, CHAR=37, IDENT=38, 
 		LINE_COMMENT=39, MULTILINE_COMMENT=40, WHITESPACE=41;
+=======
+		T__24=25, T__25=26, T__26=27, T__27=28, LITENT=29, LITREAL=30, CHAR=31, 
+		IDENT=32, LINE_COMMENT=33, MULTILINE_COMMENT=34, WHITESPACE=35;
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 		T__24=25, T__25=26, T__26=27, T__27=28, LITENT=29, LITREAL=30, CHAR=31, 
 		IDENT=32, LINE_COMMENT=33, MULTILINE_COMMENT=34, WHITESPACE=35;
@@ -41,9 +46,14 @@ public class GrammarLexer extends Lexer {
 			"T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", 
 			"T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", 
 			"T__33", "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", 
 			"WHITESPACE"
+=======
+			"T__25", "T__26", "T__27", "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", 
+			"MULTILINE_COMMENT", "WHITESPACE"
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 			"T__25", "T__26", "T__27", "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", 
 			"MULTILINE_COMMENT", "WHITESPACE"
@@ -63,6 +73,9 @@ public class GrammarLexer extends Lexer {
 			"'('", "','", "')'", "'{'", "'}'", "'='", "'+'", "'-'", "'*'", "'/'", 
 			"'<'", "'>'", "'=='", "'<='", "'>='", "'!='", "'&&'", "'||'", "'if'", 
 			"'else'"
+<<<<<<< HEAD
+>>>>>>> parent of b826416 (Grammar ready for testing)
+=======
 >>>>>>> parent of b826416 (Grammar ready for testing)
 		};
 	}
@@ -72,8 +85,13 @@ public class GrammarLexer extends Lexer {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 <<<<<<< HEAD
+<<<<<<< HEAD
 			null, null, null, null, null, null, null, null, null, null, null, "LITENT", 
 			"LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+=======
+			null, null, null, null, null, "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", 
+			"MULTILINE_COMMENT", "WHITESPACE"
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 			null, null, null, null, null, "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", 
 			"MULTILINE_COMMENT", "WHITESPACE"
@@ -140,7 +158,11 @@ public class GrammarLexer extends Lexer {
 
 	public static final String _serializedATN =
 <<<<<<< HEAD
+<<<<<<< HEAD
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2+\u0109\b\1\4\2\t"+
+=======
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2%\u00d4\b\1\4\2\t"+
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2%\u00d4\b\1\4\2\t"+
 >>>>>>> parent of b826416 (Grammar ready for testing)
@@ -148,6 +170,7 @@ public class GrammarLexer extends Lexer {
 		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\4\37\t\37\4 \t \4!"+
+<<<<<<< HEAD
 <<<<<<< HEAD
 		"\t!\4\"\t\"\4#\t#\4$\t$\4%\t%\4&\t&\4\'\t\'\4(\t(\4)\t)\4*\t*\3\2\3\2"+
 		"\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\6\3\6\3"+
@@ -227,6 +250,8 @@ public class GrammarLexer extends Lexer {
 		"\u0108\b*\2\2\u0108T\3\2\2\2\13\2\u00ce\u00d3\u00d9\u00e3\u00ec\u00f0"+
 		"\u00fa\u0105\3\b\2\2";
 =======
+=======
+>>>>>>> parent of b826416 (Grammar ready for testing)
 		"\t!\4\"\t\"\4#\t#\4$\t$\3\2\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\4\3"+
 		"\4\3\4\3\4\3\4\3\5\3\5\3\6\3\6\3\7\3\7\3\7\3\7\3\b\3\b\3\t\3\t\3\n\3\n"+
 		"\3\13\3\13\3\f\3\f\3\r\3\r\3\16\3\16\3\17\3\17\3\20\3\20\3\21\3\21\3\22"+
@@ -287,6 +312,9 @@ public class GrammarLexer extends Lexer {
 		"\u00d0\u00ce\3\2\2\2\u00d0\u00d1\3\2\2\2\u00d1\u00d2\3\2\2\2\u00d2\u00d3"+
 		"\b$\2\2\u00d3H\3\2\2\2\13\2\u0099\u009e\u00a4\u00ae\u00b7\u00bb\u00c5"+
 		"\u00d0\3\b\2\2";
+<<<<<<< HEAD
+>>>>>>> parent of b826416 (Grammar ready for testing)
+=======
 >>>>>>> parent of b826416 (Grammar ready for testing)
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

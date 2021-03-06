@@ -24,7 +24,11 @@ defFunc:
 definicion: defVar | defStruct | defFunc;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 asignacion: IDENT '=' IDENT ';' | IDENT '=' expr ';';
+=======
+asignacion: IDENT '=' IDENT | IDENT = expr;
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 asignacion: IDENT '=' IDENT | IDENT = expr;
 >>>>>>> parent of b826416 (Grammar ready for testing)
@@ -44,6 +48,7 @@ operador:
 	| '||';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 expr:
 	CHAR
 	| LITENT
@@ -53,6 +58,9 @@ expr:
 	| '<' tipo '>' IDENT
 	| '(' expr ')'
 	| IDENT '(' (expr (',' expr)*)* ')'; //
+=======
+expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr; //
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 expr: CHAR | LITENT | LITREAL | IDENT | expr operador expr; //
 >>>>>>> parent of b826416 (Grammar ready for testing)

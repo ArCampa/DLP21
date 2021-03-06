@@ -18,12 +18,18 @@ public class GrammarLexer extends Lexer {
 		new PredictionContextCache();
 	public static final int
 <<<<<<< HEAD
+<<<<<<< HEAD
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
 		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
 		T__31=32, T__32=33, T__33=34, LITENT=35, LITREAL=36, CHAR=37, IDENT=38, 
 		LINE_COMMENT=39, MULTILINE_COMMENT=40, WHITESPACE=41;
+=======
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, LITENT=9, 
+		LITREAL=10, CHAR=11, IDENT=12, LINE_COMMENT=13, MULTILINE_COMMENT=14, 
+		WHITESPACE=15;
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, LITENT=9, 
 		LITREAL=10, CHAR=11, IDENT=12, LINE_COMMENT=13, MULTILINE_COMMENT=14, 
@@ -40,12 +46,17 @@ public class GrammarLexer extends Lexer {
 	private static String[] makeRuleNames() {
 		return new String[] {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "T__8", 
 			"T__9", "T__10", "T__11", "T__12", "T__13", "T__14", "T__15", "T__16", 
 			"T__17", "T__18", "T__19", "T__20", "T__21", "T__22", "T__23", "T__24", 
 			"T__25", "T__26", "T__27", "T__28", "T__29", "T__30", "T__31", "T__32", 
 			"T__33", "LITENT", "LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", 
 			"WHITESPACE"
+=======
+			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "LITENT", 
+			"LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 			"T__0", "T__1", "T__2", "T__3", "T__4", "T__5", "T__6", "T__7", "LITENT", 
 			"LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
@@ -57,10 +68,14 @@ public class GrammarLexer extends Lexer {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			null, "'int'", "'float'", "'char'", "'['", "']'", "'var'", "':'", "';'", 
 			"'struct'", "'{'", "'}'", "'('", "','", "')'", "'='", "'+'", "'-'", "'*'", 
 			"'/'", "'<'", "'>'", "'=='", "'<='", "'>='", "'!='", "'&&'", "'||'", 
 			"'if'", "'else'", "'while'", "'println'", "'printsp'", "'return'", "'read'"
+=======
+			null, "'int'", "'float'", "'char'", "'['", "']'", "'var'", "':'", "';'"
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 			null, "'int'", "'float'", "'char'", "'['", "']'", "'var'", "':'", "';'"
 >>>>>>> parent of b826416 (Grammar ready for testing)
@@ -70,10 +85,15 @@ public class GrammarLexer extends Lexer {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, "LITENT", 
 			"LITREAL", "CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+=======
+			null, null, null, null, null, null, null, null, null, "LITENT", "LITREAL", 
+			"CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
+>>>>>>> parent of b826416 (Grammar ready for testing)
 =======
 			null, null, null, null, null, null, null, null, null, "LITENT", "LITREAL", 
 			"CHAR", "IDENT", "LINE_COMMENT", "MULTILINE_COMMENT", "WHITESPACE"
@@ -139,6 +159,7 @@ public class GrammarLexer extends Lexer {
 	public ATN getATN() { return _ATN; }
 
 	public static final String _serializedATN =
+<<<<<<< HEAD
 <<<<<<< HEAD
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2+\u0109\b\1\4\2\t"+
 		"\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
@@ -223,6 +244,8 @@ public class GrammarLexer extends Lexer {
 		"\u0108\b*\2\2\u0108T\3\2\2\2\13\2\u00ce\u00d3\u00d9\u00e3\u00ec\u00f0"+
 		"\u00fa\u0105\3\b\2\2";
 =======
+=======
+>>>>>>> parent of b826416 (Grammar ready for testing)
 		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\2\21z\b\1\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\3\2\3\2\3\2\3\2\3\3"+
@@ -255,6 +278,9 @@ public class GrammarLexer extends Lexer {
 		"\2\2op\7\61\2\2pq\3\2\2\2qr\b\17\2\2r\36\3\2\2\2su\t\6\2\2ts\3\2\2\2u"+
 		"v\3\2\2\2vt\3\2\2\2vw\3\2\2\2wx\3\2\2\2xy\b\20\2\2y \3\2\2\2\13\2?DJT"+
 		"]akv\3\b\2\2";
+<<<<<<< HEAD
+>>>>>>> parent of b826416 (Grammar ready for testing)
+=======
 >>>>>>> parent of b826416 (Grammar ready for testing)
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());

@@ -27,6 +27,7 @@ T__25=26
 T__26=27
 T__27=28
 <<<<<<< HEAD
+<<<<<<< HEAD
 T__28=29
 T__29=30
 T__30=31
@@ -41,6 +42,8 @@ LINE_COMMENT=39
 MULTILINE_COMMENT=40
 WHITESPACE=41
 =======
+=======
+>>>>>>> parent of b826416 (Grammar ready for testing)
 LITENT=29
 LITREAL=30
 CHAR=31
@@ -48,6 +51,9 @@ IDENT=32
 LINE_COMMENT=33
 MULTILINE_COMMENT=34
 WHITESPACE=35
+<<<<<<< HEAD
+>>>>>>> parent of b826416 (Grammar ready for testing)
+=======
 >>>>>>> parent of b826416 (Grammar ready for testing)
 'int'=1
 'float'=2
@@ -105,4 +111,7 @@ WHITESPACE=35
 '||'=26
 'if'=27
 'else'=28
+<<<<<<< HEAD
+>>>>>>> parent of b826416 (Grammar ready for testing)
+=======
 >>>>>>> parent of b826416 (Grammar ready for testing)
