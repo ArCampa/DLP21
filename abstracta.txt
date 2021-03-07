@@ -1,18 +1,21 @@
 CATEGORIES
-expression, sentence, type
+expresion, sentencia, tipo, definicion
 
 NODES
-program -> definitions:varDefinition* sentences:sentence*;
+programa -> definiciones:definicion*;
 
-varDefinition -> type name:string;
 
-intType:type -> ;
-realType:type -> ;
+tipoInt:tipo -> ;
+tipoFloat:tipo -> ;
+tipoChar:tipo -> ;
+tipoStruct:tipo -> ;
 
-print:sentence -> expression;
-assignment:sentence -> left:expression right:expression;
+print:sentencia -> expresion;
+asignacion:sentencia -> left:expresion right:expresion;
 
-arithmeticExpression:expression -> left:expression operator:string right:expression;
-variable:expression -> name:string;
-intConstant:expression -> value:string;
-realConstant:expression -> value:string;
+expresionAritmetica:expresion -> left:expresion operator:string right:expresion;
+variable:expresion -> name:string;
+intConstant:expresion -> value:string;
+floatConstant:expresion -> value:string;
+charConstant:expresion -> value:string;
+identificador:expresion -> value:string;

@@ -6,9 +6,9 @@ package ast;
 
 import visitor.*;
 
-//	realType:type -> 
+//	tipoStruct:tipo -> 
 
-public class RealType extends AbstractType {
+public class TipoStruct extends AbstractTipo {
 
 	@Override
 	public Object accept(Visitor v, Object param) { 
@@ -17,6 +17,6 @@ public class RealType extends AbstractType {
 
 
 	public String toString() {
-       return "{RealType}";
+       return "{TipoStruct}";
    }
 }

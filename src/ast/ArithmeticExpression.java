@@ -8,11 +8,11 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	arithmeticExpression:expression -> left:expression  operator:String  right:expression
+//	arithmeticExpression:expresion -> left:expresion  operator:String  right:expresion
 
-public class ArithmeticExpression extends AbstractExpression {
+public class ArithmeticExpression extends AbstractExpresion {
 
-	public ArithmeticExpression(Expression left, String operator, Expression right) {
+	public ArithmeticExpression(Expresion left, String operator, Expresion right) {
 		this.left = left;
 		this.operator = operator;
 		this.right = right;
@@ -23,19 +23,19 @@ public class ArithmeticExpression extends AbstractExpression {
 	}
 
 	public ArithmeticExpression(Object left, Object operator, Object right) {
-		this.left = (Expression) getAST(left);
+		this.left = (Expresion) getAST(left);
 		this.operator = (operator instanceof Token) ? ((Token)operator).getText() : (String) operator;
-		this.right = (Expression) getAST(right);
+		this.right = (Expresion) getAST(right);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(left, operator, right);
 	}
 
-	public Expression getLeft() {
+	public Expresion getLeft() {
 		return left;
 	}
-	public void setLeft(Expression left) {
+	public void setLeft(Expresion left) {
 		this.left = left;
 	}
 
@@ -46,10 +46,10 @@ public class ArithmeticExpression extends AbstractExpression {
 		this.operator = operator;
 	}
 
-	public Expression getRight() {
+	public Expresion getRight() {
 		return right;
 	}
-	public void setRight(Expression right) {
+	public void setRight(Expresion right) {
 		this.right = right;
 	}
 
@@ -58,9 +58,9 @@ public class ArithmeticExpression extends AbstractExpression {
 		return v.visit(this, param);
 	}
 
-	private Expression left;
+	private Expresion left;
 	private String operator;
-	private Expression right;
+	private Expresion right;
 
 	public String toString() {
        return "{left:" + getLeft() + ", operator:" + getOperator() + ", right:" + getRight() + "}";

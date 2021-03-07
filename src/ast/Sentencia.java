@@ -4,6 +4,6 @@
 
 package ast;
 
-public interface Sentence extends AST {
+public interface Sentencia extends AST {
 
 }

@@ -14,39 +14,41 @@ DefaultVisitor. Implementación base del visitor para ser derivada por nuevos vi
 */
 public class DefaultVisitor implements Visitor {
 
-	//	class Program { List<VarDefinition> definitions;  List<Sentence> sentences; }
-	public Object visit(Program node, Object param) {
-		visitChildren(node.getDefinitions(), param);
-		visitChildren(node.getSentences(), param);
+	//	class Programa { List<Definicion> definiciones; }
+	public Object visit(Programa node, Object param) {
+		visitChildren(node.getDefiniciones(), param);
 		return null;
 	}
 
-	//	class VarDefinition { Type type;  String name; }
-	public Object visit(VarDefinition node, Object param) {
-		if (node.getType() != null)
-			node.getType().accept(this, param);
+	//	class TipoInt {  }
+	public Object visit(TipoInt node, Object param) {
 		return null;
 	}
 
-	//	class IntType {  }
-	public Object visit(IntType node, Object param) {
+	//	class TipoFloat {  }
+	public Object visit(TipoFloat node, Object param) {
 		return null;
 	}
 
-	//	class RealType {  }
-	public Object visit(RealType node, Object param) {
+	//	class TipoChar {  }
+	public Object visit(TipoChar node, Object param) {
 		return null;
 	}
 
-	//	class Print { Expression expression; }
+	//	class TipoStruct {  }
+	public Object visit(TipoStruct node, Object param) {
+		return null;
+	}
+
+	//	class Print { Expresion expresion; }
 	public Object visit(Print node, Object param) {
-		if (node.getExpression() != null)
-			node.getExpression().accept(this, param);
+		if (node.getExpresion() != null)
+			node.getExpresion().accept(this, param);
 		return null;
 	}
 
-	//	class Assignment { Expression left;  Expression right; }
-	public Object visit(Assignment node, Object param) {
+	//	class Asignacion { Expresion left;  Expresion right; }
+	public Object visit(Asignacion node, Object param) {
 		if (node.getLeft() != null)
 			node.getLeft().accept(this, param);
 		if (node.getRight() != null)
@@ -54,8 +56,8 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class ArithmeticExpression { Expression left;  String operator;  Expression right; }
-	public Object visit(ArithmeticExpression node, Object param) {
+	//	class ExpresionAritmetica { Expresion left;  String operator;  Expresion right; }
+	public Object visit(ExpresionAritmetica node, Object param) {
 		if (node.getLeft() != null)
 			node.getLeft().accept(this, param);
 		if (node.getRight() != null)
@@ -73,8 +75,18 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class RealConstant { String value; }
-	public Object visit(RealConstant node, Object param) {
+	//	class FloatConstant { String value; }
+	public Object visit(FloatConstant node, Object param) {
+		return null;
+	}
+
+	//	class CharConstant { String value; }
+	public Object visit(CharConstant node, Object param) {
+		return null;
+	}
+
+	//	class Identificador { String value; }
+	public Object visit(Identificador node, Object param) {
 		return null;
 	}
 

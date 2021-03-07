@@ -8,9 +8,9 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	intConstant:expression -> value:String
+//	intConstant:expresion -> value:String
 
-public class IntConstant extends AbstractExpression {
+public class IntConstant extends AbstractExpresion {
 
 	public IntConstant(String value) {
 		this.value = value;

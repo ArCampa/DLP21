@@ -8,11 +8,11 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	assignment:sentence -> left:expression  right:expression
+//	assignment:sentencia -> left:expresion  right:expresion
 
-public class Assignment extends AbstractSentence {
+public class Assignment extends AbstractSentencia {
 
-	public Assignment(Expression left, Expression right) {
+	public Assignment(Expresion left, Expresion right) {
 		this.left = left;
 		this.right = right;
 
@@ -22,25 +22,25 @@ public class Assignment extends AbstractSentence {
 	}
 
 	public Assignment(Object left, Object right) {
-		this.left = (Expression) getAST(left);
-		this.right = (Expression) getAST(right);
+		this.left = (Expresion) getAST(left);
+		this.right = (Expresion) getAST(right);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
        setPositions(left, right);
 	}
 
-	public Expression getLeft() {
+	public Expresion getLeft() {
 		return left;
 	}
-	public void setLeft(Expression left) {
+	public void setLeft(Expresion left) {
 		this.left = left;
 	}
 
-	public Expression getRight() {
+	public Expresion getRight() {
 		return right;
 	}
-	public void setRight(Expression right) {
+	public void setRight(Expresion right) {
 		this.right = right;
 	}
 
@@ -49,8 +49,8 @@ public class Assignment extends AbstractSentence {
 		return v.visit(this, param);
 	}
 
-	private Expression left;
-	private Expression right;
+	private Expresion left;
+	private Expresion right;
 
 	public String toString() {
        return "{left:" + getLeft() + ", right:" + getRight() + "}";

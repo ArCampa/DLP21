@@ -8,9 +8,9 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	realConstant:expression -> value:String
+//	realConstant:expresion -> value:String
 
-public class RealConstant extends AbstractExpression {
+public class RealConstant extends AbstractExpresion {
 
 	public RealConstant(String value) {
 		this.value = value;

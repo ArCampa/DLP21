@@ -8,31 +8,31 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	print:sentence -> expression:expression
+//	print:sentencia -> expresion:expresion
 
-public class Print extends AbstractSentence {
+public class Print extends AbstractSentencia {
 
-	public Print(Expression expression) {
-		this.expression = expression;
-
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(expression);
-	}
-
-	public Print(Object expression) {
-		this.expression = (Expression) getAST(expression);
+	public Print(Expresion expresion) {
+		this.expresion = expresion;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(expression);
+       setPositions(expresion);
 	}
 
-	public Expression getExpression() {
-		return expression;
+	public Print(Object expresion) {
+		this.expresion = (Expresion) getAST(expresion);
+
+       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
+       // Obtiene la linea/columna a partir de las de los hijos.
+       setPositions(expresion);
 	}
-	public void setExpression(Expression expression) {
-		this.expression = expression;
+
+	public Expresion getExpresion() {
+		return expresion;
+	}
+	public void setExpresion(Expresion expresion) {
+		this.expresion = expresion;
 	}
 
 	@Override
@@ -40,9 +40,9 @@ public class Print extends AbstractSentence {
 		return v.visit(this, param);
 	}
 
-	private Expression expression;
+	private Expresion expresion;
 
 	public String toString() {
-       return "{expression:" + getExpression() + "}";
+       return "{expresion:" + getExpresion() + "}";
    }
 }

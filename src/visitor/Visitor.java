@@ -7,14 +7,17 @@ package visitor;
 import ast.*;
 
 public interface Visitor {
-	public Object visit(Program node, Object param);
-	public Object visit(VarDefinition node, Object param);
-	public Object visit(IntType node, Object param);
-	public Object visit(RealType node, Object param);
+	public Object visit(Programa node, Object param);
+	public Object visit(TipoInt node, Object param);
+	public Object visit(TipoFloat node, Object param);
+	public Object visit(TipoChar node, Object param);
+	public Object visit(TipoStruct node, Object param);
 	public Object visit(Print node, Object param);
-	public Object visit(Assignment node, Object param);
-	public Object visit(ArithmeticExpression node, Object param);
+	public Object visit(Asignacion node, Object param);
+	public Object visit(ExpresionAritmetica node, Object param);
 	public Object visit(Variable node, Object param);
 	public Object visit(IntConstant node, Object param);
-	public Object visit(RealConstant node, Object param);
+	public Object visit(FloatConstant node, Object param);
+	public Object visit(CharConstant node, Object param);
+	public Object visit(Identificador node, Object param);
 }

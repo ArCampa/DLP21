@@ -4,6 +4,6 @@
 
 package ast;
 
-public interface Type extends AST {
+public interface Tipo extends AST {
 
 }

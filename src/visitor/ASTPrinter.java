@@ -94,76 +94,82 @@ public class ASTPrinter extends DefaultVisitor {
     }
 
     // ----------------------------------------------
-	//	class Program { List<VarDefinition> definitions;  List<Sentence> sentences; }
-	public Object visit(Program node, Object param) {
+	//	class Programa { List<Definicion> definiciones; }
+	public Object visit(Programa node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "Program", node, false);
+		printName(indent, "Programa", node, false);
 
-		visit(indent + 1, "definitions", "List<VarDefinition>",node.getDefinitions());
-		visit(indent + 1, "sentences", "List<Sentence>",node.getSentences());
+		visit(indent + 1, "definiciones", "List<Definicion>",node.getDefiniciones());
 		return null;
 	}
 
-	//	class VarDefinition { Type type;  String name; }
-	public Object visit(VarDefinition node, Object param) {
+	//	class TipoInt {  }
+	public Object visit(TipoInt node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "VarDefinition", node, false);
-
-		visit(indent + 1, "type", "Type",node.getType());
-		print(indent + 1, "name", "String", node.getName());
-		return null;
-	}
-
-	//	class IntType {  }
-	public Object visit(IntType node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "IntType", node, true);
+		printName(indent, "TipoInt", node, true);
 
 		return null;
 	}
 
-	//	class RealType {  }
-	public Object visit(RealType node, Object param) {
+	//	class TipoFloat {  }
+	public Object visit(TipoFloat node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "RealType", node, true);
+		printName(indent, "TipoFloat", node, true);
 
 		return null;
 	}
 
-	//	class Print { Expression expression; }
+	//	class TipoChar {  }
+	public Object visit(TipoChar node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "TipoChar", node, true);
+
+		return null;
+	}
+
+	//	class TipoStruct {  }
+	public Object visit(TipoStruct node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "TipoStruct", node, true);
+
+		return null;
+	}
+
+	//	class Print { Expresion expresion; }
 	public Object visit(Print node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "Print", node, false);
 
-		visit(indent + 1, "expression", "Expression",node.getExpression());
+		visit(indent + 1, "expresion", "Expresion",node.getExpresion());
 		return null;
 	}
 
-	//	class Assignment { Expression left;  Expression right; }
-	public Object visit(Assignment node, Object param) {
+	//	class Asignacion { Expresion left;  Expresion right; }
+	public Object visit(Asignacion node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "Assignment", node, false);
+		printName(indent, "Asignacion", node, false);
 
-		visit(indent + 1, "left", "Expression",node.getLeft());
-		visit(indent + 1, "right", "Expression",node.getRight());
+		visit(indent + 1, "left", "Expresion",node.getLeft());
+		visit(indent + 1, "right", "Expresion",node.getRight());
 		return null;
 	}
 
-	//	class ArithmeticExpression { Expression left;  String operator;  Expression right; }
-	public Object visit(ArithmeticExpression node, Object param) {
+	//	class ExpresionAritmetica { Expresion left;  String operator;  Expresion right; }
+	public Object visit(ExpresionAritmetica node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "ArithmeticExpression", node, false);
+		printName(indent, "ExpresionAritmetica", node, false);
 
-		visit(indent + 1, "left", "Expression",node.getLeft());
+		visit(indent + 1, "left", "Expresion",node.getLeft());
 		print(indent + 1, "operator", "String", node.getOperator());
-		visit(indent + 1, "right", "Expression",node.getRight());
+		visit(indent + 1, "right", "Expresion",node.getRight());
 		return null;
 	}
 
@@ -183,11 +189,27 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class RealConstant { String value; }
-	public Object visit(RealConstant node, Object param) {
+	//	class FloatConstant { String value; }
+	public Object visit(FloatConstant node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printCompact(indent, "RealConstant", node, "value", node.getValue());
+		printCompact(indent, "FloatConstant", node, "value", node.getValue());
+		return null;
+	}
+
+	//	class CharConstant { String value; }
+	public Object visit(CharConstant node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printCompact(indent, "CharConstant", node, "value", node.getValue());
+		return null;
+	}
+
+	//	class Identificador { String value; }
+	public Object visit(Identificador node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printCompact(indent, "Identificador", node, "value", node.getValue());
 		return null;
 	}
 

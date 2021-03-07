@@ -6,9 +6,9 @@ package ast;
 
 import visitor.*;
 
-//	intType:type -> 
+//	tipoFloat:tipo -> 
 
-public class IntType extends AbstractType {
+public class TipoFloat extends AbstractTipo {
 
 	@Override
 	public Object accept(Visitor v, Object param) { 
@@ -17,6 +17,6 @@ public class IntType extends AbstractType {
 
 
 	public String toString() {
-       return "{IntType}";
+       return "{TipoFloat}";
    }
 }
