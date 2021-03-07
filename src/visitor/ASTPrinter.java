@@ -183,12 +183,16 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class DefFunc {  }
+	//	class DefFunc { String text;  List<Param> params;  Tipo tipo;  List<Sentencia> sentencias; }
 	public Object visit(DefFunc node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "DefFunc", node, true);
+		printName(indent, "DefFunc", node, false);
 
+		print(indent + 1, "text", "String", node.getText());
+		visit(indent + 1, "params", "List<Param>",node.getParams());
+		visit(indent + 1, "tipo", "Tipo",node.getTipo());
+		visit(indent + 1, "sentencias", "List<Sentencia>",node.getSentencias());
 		return null;
 	}
 

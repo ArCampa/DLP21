@@ -118,8 +118,22 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
-	//	class DefFunc {  }
+	//	class DefFunc { String text;  List<Param> params;  Tipo tipo;  List<Sentencia> sentencias; }
 	public Object visit(DefFunc node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getParams() != null)
+			for (Param child : node.getParams())
+				child.accept(this, param);
+
+		if (node.getTipo() != null)
+			node.getTipo().accept(this, param);
+
+		if (node.getSentencias() != null)
+			for (Sentencia child : node.getSentencias())
+				child.accept(this, param);
+
 		return null;
 	}
 

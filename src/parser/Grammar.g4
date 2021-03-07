@@ -41,13 +41,13 @@ defStruct
 defFunc
 	returns[DefFunc ast]:
 	funcName = IDENT '(' params ')' (':' tipo)? '{' sentencias '}' //
-	{ $ast =  new DefFunc($IDENT, $params.list, $tipo.ast, $sentencias.list); 
+	{ $ast =  new DefFunc($IDENT.text, $params.list, $tipo.ast, $sentencias.list); 
 		};
 
 params
 	returns[List<Param> list = new ArrayList<Param>()]: (
-		IDENT ':' tipo { $list.add(new Param($IDENT, $tipo.ast)); } (
-			',' IDENT ':' tipo { $list.add(new Param($IDENT, $tipo.ast)); }
+		IDENT ':' tipo { $list.add(new Param($IDENT.text, $tipo.ast)); } (
+			',' IDENT ':' tipo { $list.add(new Param($IDENT.text, $tipo.ast)); }
 		)*
 	)*;
 
@@ -72,13 +72,13 @@ operador:
 
 expr
 	returns[Expresion ast]:
-	CHAR { $ast = new CharConstant(&CHAR.text);}
-	| LITENT { $ast = new IntConstant(&LITENT.text);}
-	| LITREAL { $ast = new FloatConstant(&LITREAL.text);}
-	| IDENT { $ast = new Identificador(&IDENT.text);}
-	| l = expr operador r = expr { $ast = new ExpresionAritmetica(&l.ast, $operador.text, $r.ast);}
+	CHAR { $ast = new CharConstant($CHAR.text);}
+	| LITENT { $ast = new IntConstant($LITENT.text);}
+	| LITREAL { $ast = new FloatConstant($LITREAL.text);}
+	| IDENT { $ast = new Identificador($IDENT.text);}
+	| l = expr operador r = expr { $ast = new ExpresionAritmetica($l.ast, $operador.text, $r.ast);}
 	| '<' tipo '>' IDENT { $ast = new Expresion($tipo.ast, $IDENT.text);}
-	| '(' expr ')' { $ast = new Expresion(&expr.ast);}
+	| '(' expr ')' { $ast = new Expresion($expr.ast);}
 	| IDENT '(' (expr (',' expr)*)* ')'; //
 
 condicional

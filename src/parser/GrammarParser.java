@@ -471,7 +471,7 @@ public class GrammarParser extends Parser {
 			((DefFuncContext)_localctx).sentencias = sentencias();
 			setState(86);
 			match(T__10);
-			 ((DefFuncContext)_localctx).ast =   new DefFunc(((DefFuncContext)_localctx).IDENT, ((DefFuncContext)_localctx).params.list, ((DefFuncContext)_localctx).tipo.ast, ((DefFuncContext)_localctx).sentencias.list); 
+			 ((DefFuncContext)_localctx).ast =   new DefFunc((((DefFuncContext)_localctx).IDENT!=null?((DefFuncContext)_localctx).IDENT.getText():null), ((DefFuncContext)_localctx).params.list, ((DefFuncContext)_localctx).tipo.ast, ((DefFuncContext)_localctx).sentencias.list); 
 					
 			}
 		}
@@ -525,7 +525,7 @@ public class GrammarParser extends Parser {
 				match(T__6);
 				setState(91);
 				((ParamsContext)_localctx).tipo = tipo();
-				 _localctx.list.add(new Param(((ParamsContext)_localctx).IDENT, ((ParamsContext)_localctx).tipo.ast)); 
+				 _localctx.list.add(new Param((((ParamsContext)_localctx).IDENT!=null?((ParamsContext)_localctx).IDENT.getText():null), ((ParamsContext)_localctx).tipo.ast)); 
 				setState(101);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
@@ -540,7 +540,7 @@ public class GrammarParser extends Parser {
 					match(T__6);
 					setState(96);
 					((ParamsContext)_localctx).tipo = tipo();
-					 _localctx.list.add(new Param(((ParamsContext)_localctx).IDENT, ((ParamsContext)_localctx).tipo.ast)); 
+					 _localctx.list.add(new Param((((ParamsContext)_localctx).IDENT!=null?((ParamsContext)_localctx).IDENT.getText():null), ((ParamsContext)_localctx).tipo.ast)); 
 					}
 					}
 					setState(103);
@@ -672,8 +672,12 @@ public class GrammarParser extends Parser {
 	public static class ExprContext extends ParserRuleContext {
 		public Expresion ast;
 		public ExprContext l;
+		public Token CHAR;
+		public Token LITENT;
+		public Token LITREAL;
 		public Token IDENT;
 		public TipoContext tipo;
+		public ExprContext expr;
 		public OperadorContext operador;
 		public ExprContext r;
 		public TerminalNode CHAR() { return getToken(GrammarParser.CHAR, 0); }
@@ -720,29 +724,29 @@ public class GrammarParser extends Parser {
 			case 1:
 				{
 				setState(125);
-				match(CHAR);
-				 ((ExprContext)_localctx).ast =  new CharConstant(&CHAR.text);
+				((ExprContext)_localctx).CHAR = match(CHAR);
+				 ((ExprContext)_localctx).ast =  new CharConstant((((ExprContext)_localctx).CHAR!=null?((ExprContext)_localctx).CHAR.getText():null));
 				}
 				break;
 			case 2:
 				{
 				setState(127);
-				match(LITENT);
-				 ((ExprContext)_localctx).ast =  new IntConstant(&LITENT.text);
+				((ExprContext)_localctx).LITENT = match(LITENT);
+				 ((ExprContext)_localctx).ast =  new IntConstant((((ExprContext)_localctx).LITENT!=null?((ExprContext)_localctx).LITENT.getText():null));
 				}
 				break;
 			case 3:
 				{
 				setState(129);
-				match(LITREAL);
-				 ((ExprContext)_localctx).ast =  new FloatConstant(&LITREAL.text);
+				((ExprContext)_localctx).LITREAL = match(LITREAL);
+				 ((ExprContext)_localctx).ast =  new FloatConstant((((ExprContext)_localctx).LITREAL!=null?((ExprContext)_localctx).LITREAL.getText():null));
 				}
 				break;
 			case 4:
 				{
 				setState(131);
 				((ExprContext)_localctx).IDENT = match(IDENT);
-				 ((ExprContext)_localctx).ast =  new Identificador(&IDENT.text);
+				 ((ExprContext)_localctx).ast =  new Identificador((((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null));
 				}
 				break;
 			case 5:
@@ -763,10 +767,10 @@ public class GrammarParser extends Parser {
 				setState(139);
 				match(T__11);
 				setState(140);
-				expr(0);
+				((ExprContext)_localctx).expr = expr(0);
 				setState(141);
 				match(T__12);
-				 ((ExprContext)_localctx).ast =  new Expresion(&expr.ast);
+				 ((ExprContext)_localctx).ast =  new Expresion(((ExprContext)_localctx).expr.ast);
 				}
 				break;
 			case 7:
@@ -782,7 +786,7 @@ public class GrammarParser extends Parser {
 					{
 					{
 					setState(146);
-					expr(0);
+					((ExprContext)_localctx).expr = expr(0);
 					setState(151);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
@@ -792,7 +796,7 @@ public class GrammarParser extends Parser {
 						setState(147);
 						match(T__13);
 						setState(148);
-						expr(0);
+						((ExprContext)_localctx).expr = expr(0);
 						}
 						}
 						setState(153);
@@ -829,8 +833,8 @@ public class GrammarParser extends Parser {
 					setState(163);
 					((ExprContext)_localctx).operador = operador();
 					setState(164);
-					((ExprContext)_localctx).r = expr(5);
-					 ((ExprContext)_localctx).ast =  new ExpresionAritmetica(&l.ast, (((ExprContext)_localctx).operador!=null?_input.getText(((ExprContext)_localctx).operador.start,((ExprContext)_localctx).operador.stop):null), ((ExprContext)_localctx).r.ast);
+					((ExprContext)_localctx).r = ((ExprContext)_localctx).expr = expr(5);
+					 ((ExprContext)_localctx).ast =  new ExpresionAritmetica(((ExprContext)_localctx).l.ast, (((ExprContext)_localctx).operador!=null?_input.getText(((ExprContext)_localctx).operador.start,((ExprContext)_localctx).operador.stop):null), ((ExprContext)_localctx).r.ast);
 					}
 					} 
 				}

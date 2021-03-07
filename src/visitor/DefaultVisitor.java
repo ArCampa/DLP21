@@ -69,8 +69,12 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class DefFunc {  }
+	//	class DefFunc { String text;  List<Param> params;  Tipo tipo;  List<Sentencia> sentencias; }
 	public Object visit(DefFunc node, Object param) {
+		visitChildren(node.getParams(), param);
+		if (node.getTipo() != null)
+			node.getTipo().accept(this, param);
+		visitChildren(node.getSentencias(), param);
 		return null;
 	}
 

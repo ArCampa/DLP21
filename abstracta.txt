@@ -1,5 +1,5 @@
 CATEGORIES
-expresion, sentencia, tipo, definicion
+expresion, sentencia, tipo, definicion, param
 
 NODES
 programa -> definiciones:definicion*;
@@ -15,7 +15,7 @@ asignacion:sentencia -> left:expresion right:expresion;
 
 DefVar:definicion -> text:string tipo:tipo;
 DefStruct:definicion -> text:string sentencias:sentencia*;
-DefFunc:definicion -> ;
+DefFunc:definicion -> text:string params:param* tipo:tipo sentencias:sentencia*;
 
 expresionAritmetica:expresion -> left:expresion operator:string right:expresion;
 variable:expresion -> name:string;
