@@ -95,6 +95,34 @@ public class <nombre clase> extends DefaultVisitor {
 		return null;
 	}
 
+	//	class DefVar { String text;  Tipo tipo; }
+	public Object visit(DefVar node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getTipo() != null)
+			node.getTipo().accept(this, param);
+
+		return null;
+	}
+
+	//	class DefStruct { String text;  List<Sentencia> sentencias; }
+	public Object visit(DefStruct node, Object param) {
+
+		// super.visit(node, param);
+
+		if (node.getSentencias() != null)
+			for (Sentencia child : node.getSentencias())
+				child.accept(this, param);
+
+		return null;
+	}
+
+	//	class DefFunc {  }
+	public Object visit(DefFunc node, Object param) {
+		return null;
+	}
+
 	//	class ExpresionAritmetica { Expresion left;  String operator;  Expresion right; }
 	public Object visit(ExpresionAritmetica node, Object param) {
 

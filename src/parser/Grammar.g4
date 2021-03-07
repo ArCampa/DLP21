@@ -15,9 +15,9 @@ definiciones
 
 definicion
 	returns[Definicion ast]:
-	defVar { $ast = new DefVar($defVar.ast );}
-	| defStruct { $ast = new DefStruct($defStruct.ast);}
-	| defFunc;
+	defVar { $ast = $defVar.ast; }
+	| defStruct { $ast = $defStruct.ast;}
+	| defFunc { $ast = $defFunc.ast;};
 
 //definición de variables
 tipo
@@ -35,7 +35,7 @@ defVar
 //definición de estructuras
 defStruct
 	returns[DefStruct ast]:
-	'struct' IDENT '{' sentencia '}' { $ast = new DefStruct($IDENT.text, $sentencia.ast); };
+	'struct' IDENT '{' sentencias '}' { $ast = new DefStruct($IDENT.text, $sentencias.list); };
 
 //definicion de funciones
 defFunc

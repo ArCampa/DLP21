@@ -14,6 +14,9 @@ public interface Visitor {
 	public Object visit(TipoStruct node, Object param);
 	public Object visit(Print node, Object param);
 	public Object visit(Asignacion node, Object param);
+	public Object visit(DefVar node, Object param);
+	public Object visit(DefStruct node, Object param);
+	public Object visit(DefFunc node, Object param);
 	public Object visit(ExpresionAritmetica node, Object param);
 	public Object visit(Variable node, Object param);
 	public Object visit(IntConstant node, Object param);

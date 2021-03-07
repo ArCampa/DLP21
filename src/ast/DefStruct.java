@@ -4,30 +4,31 @@
 
 package ast;
 
+import java.util.*;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	DefVar:definicion -> text:String  tipo:tipo
+//	DefStruct:definicion -> text:String  sentencias:sentencia*
 
-public class DefVar extends AbstractDefinicion {
+public class DefStruct extends AbstractDefinicion {
 
-	public DefVar(String text, Tipo tipo) {
+	public DefStruct(String text, List<Sentencia> sentencias) {
 		this.text = text;
-		this.tipo = tipo;
+		this.sentencias = sentencias;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(tipo);
+       setPositions(sentencias);
 	}
 
-	public DefVar(Object text, Object tipo) {
+	public DefStruct(Object text, Object sentencias) {
 		this.text = (text instanceof Token) ? ((Token)text).getText() : (String) text;
-		this.tipo = (Tipo) getAST(tipo);
+		this.sentencias = this.<Sentencia>getAstFromContexts(sentencias);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(text, tipo);
+       setPositions(text, sentencias);
 	}
 
 	public String getText() {
@@ -37,11 +38,11 @@ public class DefVar extends AbstractDefinicion {
 		this.text = text;
 	}
 
-	public Tipo getTipo() {
-		return tipo;
+	public List<Sentencia> getSentencias() {
+		return sentencias;
 	}
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
+	public void setSentencias(List<Sentencia> sentencias) {
+		this.sentencias = sentencias;
 	}
 
 	@Override
@@ -50,9 +51,9 @@ public class DefVar extends AbstractDefinicion {
 	}
 
 	private String text;
-	private Tipo tipo;
+	private List<Sentencia> sentencias;
 
 	public String toString() {
-       return "{text:" + getText() + ", tipo:" + getTipo() + "}";
+       return "{text:" + getText() + ", sentencias:" + getSentencias() + "}";
    }
 }

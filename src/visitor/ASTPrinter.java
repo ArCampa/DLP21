@@ -161,6 +161,37 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class DefVar { String text;  Tipo tipo; }
+	public Object visit(DefVar node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "DefVar", node, false);
+
+		print(indent + 1, "text", "String", node.getText());
+		visit(indent + 1, "tipo", "Tipo",node.getTipo());
+		return null;
+	}
+
+	//	class DefStruct { String text;  List<Sentencia> sentencias; }
+	public Object visit(DefStruct node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "DefStruct", node, false);
+
+		print(indent + 1, "text", "String", node.getText());
+		visit(indent + 1, "sentencias", "List<Sentencia>",node.getSentencias());
+		return null;
+	}
+
+	//	class DefFunc {  }
+	public Object visit(DefFunc node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "DefFunc", node, true);
+
+		return null;
+	}
+
 	//	class ExpresionAritmetica { Expresion left;  String operator;  Expresion right; }
 	public Object visit(ExpresionAritmetica node, Object param) {
 		int indent = ((Integer)param).intValue();

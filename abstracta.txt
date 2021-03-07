@@ -13,6 +13,10 @@ tipoStruct:tipo -> ;
 print:sentencia -> expresion;
 asignacion:sentencia -> left:expresion right:expresion;
 
+DefVar:definicion -> text:string tipo:tipo;
+DefStruct:definicion -> text:string sentencias:sentencia*;
+DefFunc:definicion -> ;
+
 expresionAritmetica:expresion -> left:expresion operator:string right:expresion;
 variable:expresion -> name:string;
 intConstant:expresion -> value:string;
