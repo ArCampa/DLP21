@@ -14,7 +14,7 @@ tipoComplejo:definicion -> name:string estructura:string;
 tipoInt:tipo -> ;
 tipoChar:tipo -> ;
 tipoFloat:tipo -> ;
-ident:expresion -> ;
+ident:expresion -> valor:string;
 arithmeticExpresion:expresion -> l:expresion op:string r:expresion;
 paramExpresion:expresion -> parametro:string*;
 

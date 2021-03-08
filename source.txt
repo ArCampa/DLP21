@@ -13,7 +13,6 @@ struct ya{};
 main( parametro:int) {
   var por: int;
   var favor: Persona;
-
   de.verdad = 20;
   read me.quiero.morir; 
 

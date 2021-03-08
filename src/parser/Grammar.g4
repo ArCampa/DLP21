@@ -14,6 +14,7 @@ definiciones
 definicion
 	returns[Definicion ast]:
 	tipoSimple { $ast = $tipoSimple.ast;}
+	| tipoComplejo { $ast = $tipoComplejo.ast;}
 	| tipoStruct { $ast = $tipoStruct.ast;}
 	| tipoFuncion { $ast = $tipoFuncion.ast;};
 
@@ -97,8 +98,13 @@ expr
 		| '!='
 		| '&&'
 		| '||'
-	) r = expr {$ast = new AritmethicExpresion($l.ast, $op.text, $r.ast);}
-	| expr '.' IDENT {$ast = new LlamadaCampo($expr.ast, $IDENT.text);};
+	) r = expr {$ast = new ArithmeticExpresion($l.ast, $op.text, $r.ast);}
+	| llamadaCampo {$ast = $llamadaCampo.ast;};
+
+llamadaCampo
+	returns[Expresion ast]:
+	IDENT '.' expr {$ast = new LlamadaCampo($IDENT.text, $expr.ast);}
+	| l = IDENT '.' r = IDENT {$ast = new LlamadaCampo($l.text, $r.text);};
 
 params
 	returns[List<Expresion> list = new ArrayList<Expresion>()]:

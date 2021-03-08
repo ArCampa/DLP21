@@ -189,12 +189,11 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Ident {  }
+	//	class Ident { String valor; }
 	public Object visit(Ident node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "Ident", node, true);
-
+		printCompact(indent, "Ident", node, "valor", node.getValor());
 		return null;
 	}
 

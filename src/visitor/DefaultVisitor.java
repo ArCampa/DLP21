@@ -69,7 +69,7 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class Ident {  }
+	//	class Ident { String valor; }
 	public Object visit(Ident node, Object param) {
 		return null;
 	}
