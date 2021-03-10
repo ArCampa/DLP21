@@ -34,6 +34,11 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class Dimensiones { List<String> dim; }
+	public Object visit(Dimensiones node, Object param) {
+		return null;
+	}
+
 	//	class EstructuraDefinida { String nombre;  List<Variable> variables; }
 	public Object visit(EstructuraDefinida node, Object param) {
 		visitChildren(node.getVariables(), param);
@@ -47,12 +52,13 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef; }
+	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef;  List<Sentencia> sentenciasEj; }
 	public Object visit(MetodoDefinido node, Object param) {
 		visitChildren(node.getParametros(), param);
 		if (node.getRetorno() != null)
 			node.getRetorno().accept(this, param);
 		visitChildren(node.getVariablesDef(), param);
+		visitChildren(node.getSentenciasEj(), param);
 		return null;
 	}
 
@@ -75,6 +81,142 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class ExpresionParentesis { Expresion expr; }
+	public Object visit(ExpresionParentesis node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		return null;
+	}
+
+	//	class ExpresionIdent { String identificador; }
+	public Object visit(ExpresionIdent node, Object param) {
+		return null;
+	}
+
+	//	class ExpresionConstante { String constante; }
+	public Object visit(ExpresionConstante node, Object param) {
+		return null;
+	}
+
+	//	class ExpresionLlamadaMetodo { String nombre;  List<Expresion> parametros; }
+	public Object visit(ExpresionLlamadaMetodo node, Object param) {
+		visitChildren(node.getParametros(), param);
+		return null;
+	}
+
+	//	class ExpresionCampoStruct { Expresion nombreStruct;  String campo; }
+	public Object visit(ExpresionCampoStruct node, Object param) {
+		if (node.getNombreStruct() != null)
+			node.getNombreStruct().accept(this, param);
+		return null;
+	}
+
+	//	class ExpresionArray { Expresion nombreArray;  List<String> dim; }
+	public Object visit(ExpresionArray node, Object param) {
+		if (node.getNombreArray() != null)
+			node.getNombreArray().accept(this, param);
+		return null;
+	}
+
+	//	class ExpresionAritmetica { Expresion l;  String op;  Expresion r; }
+	public Object visit(ExpresionAritmetica node, Object param) {
+		if (node.getL() != null)
+			node.getL().accept(this, param);
+		if (node.getR() != null)
+			node.getR().accept(this, param);
+		return null;
+	}
+
+	//	class ExpresionLogica { Expresion l;  String op;  Expresion r; }
+	public Object visit(ExpresionLogica node, Object param) {
+		if (node.getL() != null)
+			node.getL().accept(this, param);
+		if (node.getR() != null)
+			node.getR().accept(this, param);
+		return null;
+	}
+
+	//	class ParametrosPasados { List<Expresion> params; }
+	public Object visit(ParametrosPasados node, Object param) {
+		visitChildren(node.getParams(), param);
+		return null;
+	}
+
+	//	class SentenciaExpresion { Expresion expr; }
+	public Object visit(SentenciaExpresion node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		return null;
+	}
+
+	//	class SentenciaAsignacion { Expresion l;  Expresion r; }
+	public Object visit(SentenciaAsignacion node, Object param) {
+		if (node.getL() != null)
+			node.getL().accept(this, param);
+		if (node.getR() != null)
+			node.getR().accept(this, param);
+		return null;
+	}
+
+	//	class SentenciaIf { Expresion expr;  List<Sentencia> ifTrue; }
+	public Object visit(SentenciaIf node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		visitChildren(node.getIfTrue(), param);
+		return null;
+	}
+
+	//	class SentenciaIfElse { Expresion expr;  List<Sentencia> ifTrue;  List<Sentencia> ifFalse; }
+	public Object visit(SentenciaIfElse node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		visitChildren(node.getIfTrue(), param);
+		visitChildren(node.getIfFalse(), param);
+		return null;
+	}
+
+	//	class SentenciaWhile { Expresion expr;  List<Sentencia> contenido; }
+	public Object visit(SentenciaWhile node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		visitChildren(node.getContenido(), param);
+		return null;
+	}
+
+	//	class Sentencias { List<Sentencia> list; }
+	public Object visit(Sentencias node, Object param) {
+		visitChildren(node.getList(), param);
+		return null;
+	}
+
+	//	class SentenciaCondicional { Sentencia condicional; }
+	public Object visit(SentenciaCondicional node, Object param) {
+		if (node.getCondicional() != null)
+			node.getCondicional().accept(this, param);
+		return null;
+	}
+
+	//	class SentenciaPrint { Expresion expr; }
+	public Object visit(SentenciaPrint node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		return null;
+	}
+
+	//	class SentenciaRead { Expresion expr; }
+	public Object visit(SentenciaRead node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		return null;
+	}
+
+	//	class SentenciaReturn { Expresion expr; }
+	public Object visit(SentenciaReturn node, Object param) {
+		if (node.getExpr() != null)
+			node.getExpr().accept(this, param);
+		return null;
+	}
+
 	//	class TipoInt {  }
 	public Object visit(TipoInt node, Object param) {
 		return null;
@@ -92,6 +234,13 @@ public class DefaultVisitor implements Visitor {
 
 	//	class TipoStruct { String nombre; }
 	public Object visit(TipoStruct node, Object param) {
+		return null;
+	}
+
+	//	class TipoArray { List<String> dim;  Tipo type; }
+	public Object visit(TipoArray node, Object param) {
+		if (node.getType() != null)
+			node.getType().accept(this, param);
 		return null;
 	}
 

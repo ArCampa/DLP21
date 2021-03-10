@@ -125,6 +125,16 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class Dimensiones { List<String> dim; }
+	public Object visit(Dimensiones node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "Dimensiones", node, false);
+
+		print(indent + 1, "dim", "List<String>", node.getDim());
+		return null;
+	}
+
 	//	class EstructuraDefinida { String nombre;  List<Variable> variables; }
 	public Object visit(EstructuraDefinida node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -146,7 +156,7 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef; }
+	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef;  List<Sentencia> sentenciasEj; }
 	public Object visit(MetodoDefinido node, Object param) {
 		int indent = ((Integer)param).intValue();
 
@@ -155,6 +165,7 @@ public class ASTPrinter extends DefaultVisitor {
 		visit(indent + 1, "parametros", "List<Variable>",node.getParametros());
 		visit(indent + 1, "retorno", "Tipo",node.getRetorno());
 		visit(indent + 1, "variablesDef", "List<VariableDefinida>",node.getVariablesDef());
+		visit(indent + 1, "sentenciasEj", "List<Sentencia>",node.getSentenciasEj());
 		return null;
 	}
 
@@ -185,6 +196,204 @@ public class ASTPrinter extends DefaultVisitor {
 		printName(indent, "VariablesDefinidas", node, false);
 
 		visit(indent + 1, "variablesdefinidas", "List<VariablesDefinidas>",node.getVariablesdefinidas());
+		return null;
+	}
+
+	//	class ExpresionParentesis { Expresion expr; }
+	public Object visit(ExpresionParentesis node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionParentesis", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		return null;
+	}
+
+	//	class ExpresionIdent { String identificador; }
+	public Object visit(ExpresionIdent node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printCompact(indent, "ExpresionIdent", node, "identificador", node.getIdentificador());
+		return null;
+	}
+
+	//	class ExpresionConstante { String constante; }
+	public Object visit(ExpresionConstante node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printCompact(indent, "ExpresionConstante", node, "constante", node.getConstante());
+		return null;
+	}
+
+	//	class ExpresionLlamadaMetodo { String nombre;  List<Expresion> parametros; }
+	public Object visit(ExpresionLlamadaMetodo node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionLlamadaMetodo", node, false);
+
+		print(indent + 1, "nombre", "String", node.getNombre());
+		visit(indent + 1, "parametros", "List<Expresion>",node.getParametros());
+		return null;
+	}
+
+	//	class ExpresionCampoStruct { Expresion nombreStruct;  String campo; }
+	public Object visit(ExpresionCampoStruct node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionCampoStruct", node, false);
+
+		visit(indent + 1, "nombreStruct", "Expresion",node.getNombreStruct());
+		print(indent + 1, "campo", "String", node.getCampo());
+		return null;
+	}
+
+	//	class ExpresionArray { Expresion nombreArray;  List<String> dim; }
+	public Object visit(ExpresionArray node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionArray", node, false);
+
+		visit(indent + 1, "nombreArray", "Expresion",node.getNombreArray());
+		print(indent + 1, "dim", "List<String>", node.getDim());
+		return null;
+	}
+
+	//	class ExpresionAritmetica { Expresion l;  String op;  Expresion r; }
+	public Object visit(ExpresionAritmetica node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionAritmetica", node, false);
+
+		visit(indent + 1, "l", "Expresion",node.getL());
+		print(indent + 1, "op", "String", node.getOp());
+		visit(indent + 1, "r", "Expresion",node.getR());
+		return null;
+	}
+
+	//	class ExpresionLogica { Expresion l;  String op;  Expresion r; }
+	public Object visit(ExpresionLogica node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionLogica", node, false);
+
+		visit(indent + 1, "l", "Expresion",node.getL());
+		print(indent + 1, "op", "String", node.getOp());
+		visit(indent + 1, "r", "Expresion",node.getR());
+		return null;
+	}
+
+	//	class ParametrosPasados { List<Expresion> params; }
+	public Object visit(ParametrosPasados node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ParametrosPasados", node, false);
+
+		visit(indent + 1, "params", "List<Expresion>",node.getParams());
+		return null;
+	}
+
+	//	class SentenciaExpresion { Expresion expr; }
+	public Object visit(SentenciaExpresion node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaExpresion", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		return null;
+	}
+
+	//	class SentenciaAsignacion { Expresion l;  Expresion r; }
+	public Object visit(SentenciaAsignacion node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaAsignacion", node, false);
+
+		visit(indent + 1, "l", "Expresion",node.getL());
+		visit(indent + 1, "r", "Expresion",node.getR());
+		return null;
+	}
+
+	//	class SentenciaIf { Expresion expr;  List<Sentencia> ifTrue; }
+	public Object visit(SentenciaIf node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaIf", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		visit(indent + 1, "ifTrue", "List<Sentencia>",node.getIfTrue());
+		return null;
+	}
+
+	//	class SentenciaIfElse { Expresion expr;  List<Sentencia> ifTrue;  List<Sentencia> ifFalse; }
+	public Object visit(SentenciaIfElse node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaIfElse", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		visit(indent + 1, "ifTrue", "List<Sentencia>",node.getIfTrue());
+		visit(indent + 1, "ifFalse", "List<Sentencia>",node.getIfFalse());
+		return null;
+	}
+
+	//	class SentenciaWhile { Expresion expr;  List<Sentencia> contenido; }
+	public Object visit(SentenciaWhile node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaWhile", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		visit(indent + 1, "contenido", "List<Sentencia>",node.getContenido());
+		return null;
+	}
+
+	//	class Sentencias { List<Sentencia> list; }
+	public Object visit(Sentencias node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "Sentencias", node, false);
+
+		visit(indent + 1, "list", "List<Sentencia>",node.getList());
+		return null;
+	}
+
+	//	class SentenciaCondicional { Sentencia condicional; }
+	public Object visit(SentenciaCondicional node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaCondicional", node, false);
+
+		visit(indent + 1, "condicional", "Sentencia",node.getCondicional());
+		return null;
+	}
+
+	//	class SentenciaPrint { Expresion expr; }
+	public Object visit(SentenciaPrint node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaPrint", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		return null;
+	}
+
+	//	class SentenciaRead { Expresion expr; }
+	public Object visit(SentenciaRead node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaRead", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
+		return null;
+	}
+
+	//	class SentenciaReturn { Expresion expr; }
+	public Object visit(SentenciaReturn node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "SentenciaReturn", node, false);
+
+		visit(indent + 1, "expr", "Expresion",node.getExpr());
 		return null;
 	}
 
@@ -220,6 +429,17 @@ public class ASTPrinter extends DefaultVisitor {
 		int indent = ((Integer)param).intValue();
 
 		printCompact(indent, "TipoStruct", node, "nombre", node.getNombre());
+		return null;
+	}
+
+	//	class TipoArray { List<String> dim;  Tipo type; }
+	public Object visit(TipoArray node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "TipoArray", node, false);
+
+		print(indent + 1, "dim", "List<String>", node.getDim());
+		visit(indent + 1, "type", "Tipo",node.getType());
 		return null;
 	}
 

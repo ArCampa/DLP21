@@ -36,7 +36,14 @@ tipo
 	'int' {$ast = new TipoInt();}
 	| 'float' {$ast = new TipoFloat();}
 	| 'char' {$ast = new TipoChar();}
-	| IDENT {$ast = new TipoStruct($IDENT.text);};
+	| IDENT {$ast = new TipoStruct($IDENT.text);}
+	| dimensiones tipo {$ast = new TipoArray($dimensiones.list, $tipo.ast);};
+
+//para las dimesiones de los arrays
+dimensiones
+	returns[List<String> list = new ArrayList<String>();]:
+	('[' num = (LITENT | IDENT) ']' {$list.add($num.text);})+;
+
 //definicion de una estructura
 estructuraDefinida
 	returns[Definicion ast]:
@@ -51,10 +58,11 @@ variablesStruct
 //definicion de un metodo
 metodoDefinido
 	returns[Definicion ast]:
-	IDENT '(' variablesParametros ')' returnTipoOpt '{' variablesDefinidas sentencias '}' { if($returnTipoOpt.list.size()==1)
-    { $ast = new MetodoDefinido($variablesParametros.list, $returnTipo.list.get(0), $variablesDefinidas.list);}
+	IDENT '(' variablesParametros ')' returnTipoOpt '{' variablesDefinidas sentencias '}' { 
+	if($returnTipoOpt.list.size()==1)
+    { $ast = new MetodoDefinido($variablesParametros.list, $returnTipoOpt.list.get(0), $variablesDefinidas.list, $sentencias.list);}
     else
-    {$ast = new MetodoDefinido($variablesParametros.list, null, $variablesDefinidas.list);}
+    {$ast = new MetodoDefinido($variablesParametros.list, null, $variablesDefinidas.list, $sentencias.list);}
 		};
 
 //parámetros de un metodo, se llaman variables al heredar de variable
@@ -74,8 +82,58 @@ returnTipoOpt
 //variables definidas dentro de un metodo, se agrupan en esta regla auxiliar porque no pueden aparecer entre sentencias
 variablesDefinidas
 	returns[List<VariableDefinida> list = new ArrayList<VariableDefinida>();]: (
-		variableDefinida {$list.add((VariableDefinida) $variableDefinida.ast);}
+		variableDefinida {$list.add((VariableDefinida) $variableDefinida.ast);
+		}
 	)*;
 
+//expresiones, para comprobar cosas, asignar cosas, etc 
+expr
+	returns[Expresion ast]:
+	'('expr')' {$ast = new ExpresionParentesis($expr.ast);}
+	| IDENT {$ast = new ExpresionIdent($IDENT.text);}
+	| constante = (LITENT | LITREAL | CHAR) {$ast = new
+	ExpresionConstante($constante.text);}
+	| nombre = IDENT '(' parametrosPasados ')' {		
+	$ast = new ExpresionLlamadaMetodo($nombre.text, $parametrosPasados.list);}
+	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT.text);
+		} //no funcionaba sin asignar la variable expr
+	| expr dimensiones {$ast = new ExpresionArray($expr.ast, $dimensiones.list);}
+	| l = expr op = ('*' | '/') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
+		}
+	| l = expr op = ('+' | '-') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
+		}
+	| l = expr op = ('&&' | '||') r = expr {$ast = new ExpresionLogica($l.ast, $op.text, $r.ast); }
+	| l = expr op = ('>' | '<' | '==' | '>=' | '<=' | '!=') r = expr {$ast = new ExpresionLogica($l.ast, $op.text,
+	$r.ast); };
+
+parametrosPasados //lista de los parámetros que se pasan a un método, regla auxiliar
+	returns[List<Expresion> list = new ArrayList<Expresion>();]: (
+		var1 = expr {  $list.add($var1.ast);} (
+			',' varX = expr {  $list.add($varX.ast);}
+		)*
+	)?;
+
+//lista de sentencias, regla auxiliar
+sentencias
+	returns[List<Sentencia> list = new ArrayList<Sentencia>();]: (
+		sentencia {$list.add($sentencia.ast);}
+	)*;
 //sentencias que puede haber dentro de un metodo
-sentencias:;
+sentencia
+	returns[Sentencia ast]:
+	expr ';' {$ast = new SentenciaExpresion($expr.ast); }
+	| l = expr '=' r = expr ';' {$ast = new SentenciaAsignacion( $l.ast, $r.ast);}
+	| sentenciaCondicional {$ast = $sentenciaCondicional.ast;}
+	| ('println' | 'printsp') expr ';' {$ast = new SentenciaPrint($expr.ast);}
+	| 'read' expr ';' {$ast = new SentenciaRead($expr.ast);}
+	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);};
+
+//auxiliar para procesar sentencial condicionales, hecho para resolver problemas específicos
+sentenciaCondicional
+	returns[Sentencia ast]:
+	'if' '(' expr ')' '{' ifTrue = sentencias '}' {$ast = new SentenciaIf($expr.ast, $ifTrue.list);}
+	| 'if' '(' expr ')' '{' ifTrue = sentencias '}' 'else' '{' ifFalse = sentencias '}' {$ast = new SentenciaIfElse($expr.ast, $ifTrue.list, $ifFalse.list);
+		}
+	| 'while' '(' expr ')' '{' sentencias '}' {$ast = new SentenciaWhile($expr.ast, $sentencias.list);
+		};
+

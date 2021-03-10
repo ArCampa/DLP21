@@ -1,21 +1,44 @@
 CATEGORIES
-definicion, tipo
+definicion, tipo, expresion, sentencia
 
 NODES
 programa -> definiciones:definicion*;
 
 variableDefinida:definicion -> var:variable; 
 variable -> nombre:string tipado:tipo;
+dimensiones -> dim:string*;
 
 estructuraDefinida:definicion -> nombre:string variables:variable*;
 variablesStruct -> variables:variable;
 
-metodoDefinido:definicion -> parametros:variable* retorno:tipo variablesDef:variableDefinida*;
+metodoDefinido:definicion -> parametros:variable* retorno:tipo variablesDef:variableDefinida* sentenciasEj:sentencia*;
 variablesParametros -> variables:variable*;
 returnTipo -> tipo;
 variablesDefinidas -> variablesDefinidas*;
+
+expresionParentesis:expresion -> expr:expresion;
+expresionIdent:expresion -> identificador:string;
+expresionConstante:expresion -> constante:string;
+expresionLlamadaMetodo:expresion -> nombre:string parametros:expresion*;
+expresionCampoStruct:expresion -> nombreStruct:expresion campo:string;
+expresionArray:expresion -> nombreArray:expresion dim:string*;
+expresionAritmetica:expresion -> l:expresion op:string r:expresion;
+expresionLogica:expresion -> l:expresion op:string r:expresion;
+parametrosPasados -> params:expresion*;
+
+sentenciaExpresion:sentencia -> expr:expresion;
+sentenciaAsignacion:sentencia -> l:expresion r:expresion;
+sentenciaIf:sentencia -> expr:expresion ifTrue:sentencia*;
+sentenciaIfElse:sentencia -> expr:expresion ifTrue:sentencia* ifFalse:sentencia*;
+sentenciaWhile:sentencia -> expr:expresion contenido:sentencia*;
+sentencias -> list:sentencia*;
+sentenciaCondicional -> condicional:sentencia;
+sentenciaPrint:sentencia -> expr:expresion;
+sentenciaRead:sentencia -> expr:expresion;
+sentenciaReturn:sentencia -> expr:expresion;
 
 tipoInt:tipo -> ;
 tipoFloat:tipo -> ;
 tipoChar:tipo -> ;
 tipoStruct:tipo -> nombre:string;
+tipoArray:tipo -> dim:string* type:tipo;
