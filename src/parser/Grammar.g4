@@ -6,112 +6,76 @@ import Lexicon;
 
 start
 	returns[Programa ast]:
-	definiciones EOF { $ast = new Programa($definiciones.list);};
-definiciones
-	returns[List<Definicion> list = new ArrayList<Definicion>()]: (
-		definicion { $list.add($definicion.ast);}
+	declaraciones EOF { $ast = new Programa ($declaraciones.list);};
+
+//todo lo que puede haber en un programa son declaraciones
+declaraciones
+	returns[List<Definicion> list = new ArrayList<Definicion>();]: (
+		variableDefinida {$list.add($variableDefinida.ast);}
+		| estructuraDefinida {$list.add($estructuraDefinida.ast);}
+		| metodoDefinido {$list.add($metodoDefinido.ast);}
 	)*;
-definicion
-	returns[Definicion ast]:
-	tipoSimple { $ast = $tipoSimple.ast;}
-	| tipoComplejo { $ast = $tipoComplejo.ast;}
-	| tipoStruct { $ast = $tipoStruct.ast;}
-	| tipoFuncion { $ast = $tipoFuncion.ast;};
 
-tipoSimple
+//definicion de una variable
+variableDefinida
 	returns[Definicion ast]:
-	'var' IDENT ':' tipo ';' { $ast = new TipoSimple($IDENT.text, $tipo.ast);};
+	'var' variable {$ast = new VariableDefinida($variable.ast);} ';';
 
-tipoComplejo
-	returns[Definicion ast]:
-	'var' nombre = IDENT ':' estructura = IDENT ';' { $ast = new TipoComplejo($nombre.text, $estructura.text);
+//descomentar para arrays variable[List<int> list = new ArrayList<int>()] //para declarar en structs
+// o componer variables definidas returns[Variable ast]: IDENT ':' ('[' LITENT ']' {
+// $list.add($LITENT); })*? tipo ';' { $ast = new Variable($IDENT, $list, $tipo.ast) };
+
+//para declarar en structs o componer variables definidas
+variable
+	returns[Variable ast]:
+	IDENT ':' tipo { $ast = new Variable($IDENT.text , $tipo.ast);
 		};
+//tipos que puede tener una variable o un retorno
 tipo
 	returns[Tipo ast]:
-	t = 'int' { $ast = new TipoInt();}
-	| t = 'char' { $ast = new TipoChar();}
-	| t = 'float' { $ast = new TipoFloat();};
-
-//no sé hacer esto array returns[Definicion ast]: 'var' IDENT ':' dimension tipo {$ast = new
-// TipoArray($IDENT.text, $dimension.list, $tipo.ast);};
-
-// dimension returns[List<String> list = new ArrayList<String>()]: ( '[' LITENT ']' {
-// $list.add($LITENT.text);} )+;
-
-tipoStruct
+	'int' {$ast = new TipoInt();}
+	| 'float' {$ast = new TipoFloat();}
+	| 'char' {$ast = new TipoChar();}
+	| IDENT {$ast = new TipoStruct($IDENT.text);};
+//definicion de una estructura
+estructuraDefinida
 	returns[Definicion ast]:
-	'struct' IDENT '{' defsNoVar '}' ';' {$ast = new TipoStruct($IDENT.text, $defsNoVar.list);};
-
-defsNoVar
-	returns[List<Definicion> list = new ArrayList<Definicion>()]:
-	(
-		IDENT ':' tipo {$list.add(new TipoSimple($IDENT.text, $tipo.ast));} ';'
-	)*;
-
-tipoFuncion
-	returns[Definicion ast]:
-	IDENT '(' defParams ')' ':' tipo '{' sentencias '}' { $ast = new TipoFuncion($IDENT.text, $defParams.list, $tipo.ast, $sentencias.list);
-		}
-	| IDENT '(' defParams ')' '{' sentencias '}' { $ast = new TipoFuncionSinRetorno($IDENT.text, $defParams.list,$sentencias.list);
+	'struct' IDENT '{' variablesStruct '}' ';' { $ast = new EstructuraDefinida($IDENT, $variablesStruct.list);
 		};
 
-defParams
-	returns[List<Definicion> list = new ArrayList<Definicion>()]: (
-		IDENT ':' tipo {$list.add(new TipoSimple($IDENT.text, $tipo.ast));} (
-			',' IDENT ':' tipo {$list.add(new TipoSimple($IDENT.text, $tipo.ast));}
+// variables contenidas en una estructura, regla auxiliar
+variablesStruct
+	returns[List<Variable> list = new ArrayList<Variable>();]:
+	(variable {$list.add($variable.ast);} ';')*;
+
+//definicion de un metodo
+metodoDefinido
+	returns[Definicion ast]:
+	IDENT '(' variablesParametros ')' returnTipoOpt '{' variablesDefinidas sentencias '}' { if($returnTipoOpt.list.size()==1)
+    { $ast = new MetodoDefinido($variablesParametros.list, $returnTipo.list.get(0), $variablesDefinidas.list);}
+    else
+    {$ast = new MetodoDefinido($variablesParametros.list, null, $variablesDefinidas.list);}
+		};
+
+//parámetros de un metodo, se llaman variables al heredar de variable
+variablesParametros
+	returns[List<Variable> list = new ArrayList<Variable>();]: (
+		primero = variable {$list.add($variable.ast);} (
+			',' otro = variable {$list.add($variable.ast);}
 		)*
-	)*;
+	)?;
 
-sentencias
-	returns[List<Sentencia> list= new ArrayList<Sentencia>()]: (
-		sentencia {$list.add($sentencia.ast);}
-	)*;
-
-sentencia
-	returns[Sentencia ast]:
-	'if' '(' expr ')' '{' ifTrue = sentencias '}' 'else' '{' ifFalse = sentencias '}' {$ast = new IfStatement($expr.ast, $ifTrue.list, $ifFalse.list);
-		}
-	| 'while' '(' expr ')' '{' sentencias '}' {$ast = new WhileStatement($expr.ast, $sentencias.list);
-		}
-	| IDENT '=' expr ';' {$ast = new Asignacion($IDENT.text, $expr.ast);}
-	| ('printsp' | 'println') expr ';' {$ast = new PrintStatement($expr.ast);}
-	| 'read' expr ';' {$ast = new ReadStatement($expr.ast);}
-	| 'return' expr ';' {$ast =  new ReturnStatement($expr.ast);}
-	//| expr ';' {$ast = new Sentencia($expr.ast;)}
-	| asignacion {$ast = $asignacion.ast;}
-	| tipoSimple;
-
-expr
-	returns[Expresion ast]:
-	IDENT {$ast = new Ident($IDENT.text);}
-	| IDENT '(' params ')' {$ast = new LlamadaFunc($IDENT.text, $params.list);}
-	| l = expr op = (
-		'+'
-		| '-'
-		| '*'
-		| '/'
-		| '<'
-		| '>'
-		| '=='
-		| '<='
-		| '>='
-		| '!='
-		| '&&'
-		| '||'
-	) r = expr {$ast = new ArithmeticExpresion($l.ast, $op.text, $r.ast);}
-	| llamadaCampo {$ast = $llamadaCampo.ast;};
-
-llamadaCampo
-	returns[Expresion ast]:
-	IDENT '.' expr {$ast = new LlamadaCampo($IDENT.text, $expr.ast);}
-	| l = IDENT '.' r = IDENT {$ast = new LlamadaCampo($l.text, $r.text);};
-
-params
-	returns[List<Expresion> list = new ArrayList<Expresion>()]:
-	valor = (IDENT | LITENT | LITREAL | CHAR) {$list.add(new Ident($valor.text));}
-	| expr {$list.add(new ParamExpresion($expr.ast));}
+//tipo de retorno de un método, devuelve una lista vacía si es null
+returnTipoOpt
+	returns[List<Tipo> list = new ArrayList<Tipo>();]:
+	':' tipo {$list.add($tipo.ast);}
 	|;
 
-asignacion
-	returns[Asignacion ast]:
-	l = expr '=' r = expr ';' {$ast = new Asignacion($l.ast, $r.ast);};
+//variables definidas dentro de un metodo, se agrupan en esta regla auxiliar porque no pueden aparecer entre sentencias
+variablesDefinidas
+	returns[List<VariableDefinida> list = new ArrayList<VariableDefinida>();]: (
+		variableDefinida {$list.add((VariableDefinida) $variableDefinida.ast);}
+	)*;
+
+//sentencias que puede haber dentro de un metodo
+sentencias:;

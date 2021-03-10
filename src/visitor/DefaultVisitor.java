@@ -20,37 +20,58 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class TipoSimple { String name;  Tipo tipo; }
-	public Object visit(TipoSimple node, Object param) {
+	//	class VariableDefinida { Variable var; }
+	public Object visit(VariableDefinida node, Object param) {
+		if (node.getVar() != null)
+			node.getVar().accept(this, param);
+		return null;
+	}
+
+	//	class Variable { String nombre;  Tipo tipado; }
+	public Object visit(Variable node, Object param) {
+		if (node.getTipado() != null)
+			node.getTipado().accept(this, param);
+		return null;
+	}
+
+	//	class EstructuraDefinida { String nombre;  List<Variable> variables; }
+	public Object visit(EstructuraDefinida node, Object param) {
+		visitChildren(node.getVariables(), param);
+		return null;
+	}
+
+	//	class VariablesStruct { Variable variables; }
+	public Object visit(VariablesStruct node, Object param) {
+		if (node.getVariables() != null)
+			node.getVariables().accept(this, param);
+		return null;
+	}
+
+	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef; }
+	public Object visit(MetodoDefinido node, Object param) {
+		visitChildren(node.getParametros(), param);
+		if (node.getRetorno() != null)
+			node.getRetorno().accept(this, param);
+		visitChildren(node.getVariablesDef(), param);
+		return null;
+	}
+
+	//	class VariablesParametros { List<Variable> variables; }
+	public Object visit(VariablesParametros node, Object param) {
+		visitChildren(node.getVariables(), param);
+		return null;
+	}
+
+	//	class ReturnTipo { Tipo tipo; }
+	public Object visit(ReturnTipo node, Object param) {
 		if (node.getTipo() != null)
 			node.getTipo().accept(this, param);
 		return null;
 	}
 
-	//	class TipoStruct { String name;  List<Definicion> defsNoVar; }
-	public Object visit(TipoStruct node, Object param) {
-		visitChildren(node.getDefsNoVar(), param);
-		return null;
-	}
-
-	//	class TipoFuncion { String name;  List<Definicion> params;  Tipo returnType;  List<Sentencia> sentencias; }
-	public Object visit(TipoFuncion node, Object param) {
-		visitChildren(node.getParams(), param);
-		if (node.getReturnType() != null)
-			node.getReturnType().accept(this, param);
-		visitChildren(node.getSentencias(), param);
-		return null;
-	}
-
-	//	class TipoFuncionSinRetorno { String name;  List<Definicion> params;  List<Sentencia> sentencias; }
-	public Object visit(TipoFuncionSinRetorno node, Object param) {
-		visitChildren(node.getParams(), param);
-		visitChildren(node.getSentencias(), param);
-		return null;
-	}
-
-	//	class TipoComplejo { String name;  String estructura; }
-	public Object visit(TipoComplejo node, Object param) {
+	//	class VariablesDefinidas { List<VariablesDefinidas> variablesdefinidas; }
+	public Object visit(VariablesDefinidas node, Object param) {
+		visitChildren(node.getVariablesdefinidas(), param);
 		return null;
 	}
 
@@ -59,92 +80,18 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class TipoChar {  }
-	public Object visit(TipoChar node, Object param) {
-		return null;
-	}
-
 	//	class TipoFloat {  }
 	public Object visit(TipoFloat node, Object param) {
 		return null;
 	}
 
-	//	class Ident { String valor; }
-	public Object visit(Ident node, Object param) {
+	//	class TipoChar {  }
+	public Object visit(TipoChar node, Object param) {
 		return null;
 	}
 
-	//	class ArithmeticExpresion { Expresion l;  String op;  Expresion r; }
-	public Object visit(ArithmeticExpresion node, Object param) {
-		if (node.getL() != null)
-			node.getL().accept(this, param);
-		if (node.getR() != null)
-			node.getR().accept(this, param);
-		return null;
-	}
-
-	//	class ParamExpresion { List<String> parametro; }
-	public Object visit(ParamExpresion node, Object param) {
-		return null;
-	}
-
-	//	class IfStatement { Expresion expr;  List<Sentencia> ifTrue;  List<Sentencia> ifFalse; }
-	public Object visit(IfStatement node, Object param) {
-		if (node.getExpr() != null)
-			node.getExpr().accept(this, param);
-		visitChildren(node.getIfTrue(), param);
-		visitChildren(node.getIfFalse(), param);
-		return null;
-	}
-
-	//	class WhileStatement { Expresion expr;  List<Sentencia> code; }
-	public Object visit(WhileStatement node, Object param) {
-		if (node.getExpr() != null)
-			node.getExpr().accept(this, param);
-		visitChildren(node.getCode(), param);
-		return null;
-	}
-
-	//	class Asignacion { Expresion left;  Expresion right; }
-	public Object visit(Asignacion node, Object param) {
-		if (node.getLeft() != null)
-			node.getLeft().accept(this, param);
-		if (node.getRight() != null)
-			node.getRight().accept(this, param);
-		return null;
-	}
-
-	//	class PrintStatement { Expresion expr; }
-	public Object visit(PrintStatement node, Object param) {
-		if (node.getExpr() != null)
-			node.getExpr().accept(this, param);
-		return null;
-	}
-
-	//	class ReadStatement { Expresion expr; }
-	public Object visit(ReadStatement node, Object param) {
-		if (node.getExpr() != null)
-			node.getExpr().accept(this, param);
-		return null;
-	}
-
-	//	class ReturnStatement { Expresion expr; }
-	public Object visit(ReturnStatement node, Object param) {
-		if (node.getExpr() != null)
-			node.getExpr().accept(this, param);
-		return null;
-	}
-
-	//	class LlamadaFunc { String nombre;  List<Expresion> params; }
-	public Object visit(LlamadaFunc node, Object param) {
-		visitChildren(node.getParams(), param);
-		return null;
-	}
-
-	//	class LlamadaCampo { Expresion estructura;  String nombre; }
-	public Object visit(LlamadaCampo node, Object param) {
-		if (node.getEstructura() != null)
-			node.getEstructura().accept(this, param);
+	//	class TipoStruct { String nombre; }
+	public Object visit(TipoStruct node, Object param) {
 		return null;
 	}
 

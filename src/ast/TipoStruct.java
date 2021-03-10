@@ -4,45 +4,31 @@
 
 package ast;
 
-import java.util.*;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	tipoStruct:definicion -> name:String  defsNoVar:definicion*
+//	tipoStruct:tipo -> nombre:String
 
-public class TipoStruct extends AbstractDefinicion {
+public class TipoStruct extends AbstractTipo {
 
-	public TipoStruct(String name, List<Definicion> defsNoVar) {
-		this.name = name;
-		this.defsNoVar = defsNoVar;
+	public TipoStruct(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public TipoStruct(Object nombre) {
+		this.nombre = (nombre instanceof Token) ? ((Token)nombre).getText() : (String) nombre;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(defsNoVar);
+       setPositions(nombre);
 	}
 
-	public TipoStruct(Object name, Object defsNoVar) {
-		this.name = (name instanceof Token) ? ((Token)name).getText() : (String) name;
-		this.defsNoVar = this.<Definicion>getAstFromContexts(defsNoVar);
-
-       // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
-       // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(name, defsNoVar);
+	public String getNombre() {
+		return nombre;
 	}
-
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Definicion> getDefsNoVar() {
-		return defsNoVar;
-	}
-	public void setDefsNoVar(List<Definicion> defsNoVar) {
-		this.defsNoVar = defsNoVar;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	@Override
@@ -50,10 +36,9 @@ public class TipoStruct extends AbstractDefinicion {
 		return v.visit(this, param);
 	}
 
-	private String name;
-	private List<Definicion> defsNoVar;
+	private String nombre;
 
 	public String toString() {
-       return "{name:" + getName() + ", defsNoVar:" + getDefsNoVar() + "}";
+       return "{nombre:" + getNombre() + "}";
    }
 }

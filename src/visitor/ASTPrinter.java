@@ -104,61 +104,87 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class TipoSimple { String name;  Tipo tipo; }
-	public Object visit(TipoSimple node, Object param) {
+	//	class VariableDefinida { Variable var; }
+	public Object visit(VariableDefinida node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "TipoSimple", node, false);
+		printName(indent, "VariableDefinida", node, false);
 
-		print(indent + 1, "name", "String", node.getName());
+		visit(indent + 1, "var", "Variable",node.getVar());
+		return null;
+	}
+
+	//	class Variable { String nombre;  Tipo tipado; }
+	public Object visit(Variable node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "Variable", node, false);
+
+		print(indent + 1, "nombre", "String", node.getNombre());
+		visit(indent + 1, "tipado", "Tipo",node.getTipado());
+		return null;
+	}
+
+	//	class EstructuraDefinida { String nombre;  List<Variable> variables; }
+	public Object visit(EstructuraDefinida node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "EstructuraDefinida", node, false);
+
+		print(indent + 1, "nombre", "String", node.getNombre());
+		visit(indent + 1, "variables", "List<Variable>",node.getVariables());
+		return null;
+	}
+
+	//	class VariablesStruct { Variable variables; }
+	public Object visit(VariablesStruct node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "VariablesStruct", node, false);
+
+		visit(indent + 1, "variables", "Variable",node.getVariables());
+		return null;
+	}
+
+	//	class MetodoDefinido { List<Variable> parametros;  Tipo retorno;  List<VariableDefinida> variablesDef; }
+	public Object visit(MetodoDefinido node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "MetodoDefinido", node, false);
+
+		visit(indent + 1, "parametros", "List<Variable>",node.getParametros());
+		visit(indent + 1, "retorno", "Tipo",node.getRetorno());
+		visit(indent + 1, "variablesDef", "List<VariableDefinida>",node.getVariablesDef());
+		return null;
+	}
+
+	//	class VariablesParametros { List<Variable> variables; }
+	public Object visit(VariablesParametros node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "VariablesParametros", node, false);
+
+		visit(indent + 1, "variables", "List<Variable>",node.getVariables());
+		return null;
+	}
+
+	//	class ReturnTipo { Tipo tipo; }
+	public Object visit(ReturnTipo node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ReturnTipo", node, false);
+
 		visit(indent + 1, "tipo", "Tipo",node.getTipo());
 		return null;
 	}
 
-	//	class TipoStruct { String name;  List<Definicion> defsNoVar; }
-	public Object visit(TipoStruct node, Object param) {
+	//	class VariablesDefinidas { List<VariablesDefinidas> variablesdefinidas; }
+	public Object visit(VariablesDefinidas node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "TipoStruct", node, false);
+		printName(indent, "VariablesDefinidas", node, false);
 
-		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "defsNoVar", "List<Definicion>",node.getDefsNoVar());
-		return null;
-	}
-
-	//	class TipoFuncion { String name;  List<Definicion> params;  Tipo returnType;  List<Sentencia> sentencias; }
-	public Object visit(TipoFuncion node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "TipoFuncion", node, false);
-
-		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "params", "List<Definicion>",node.getParams());
-		visit(indent + 1, "returnType", "Tipo",node.getReturnType());
-		visit(indent + 1, "sentencias", "List<Sentencia>",node.getSentencias());
-		return null;
-	}
-
-	//	class TipoFuncionSinRetorno { String name;  List<Definicion> params;  List<Sentencia> sentencias; }
-	public Object visit(TipoFuncionSinRetorno node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "TipoFuncionSinRetorno", node, false);
-
-		print(indent + 1, "name", "String", node.getName());
-		visit(indent + 1, "params", "List<Definicion>",node.getParams());
-		visit(indent + 1, "sentencias", "List<Sentencia>",node.getSentencias());
-		return null;
-	}
-
-	//	class TipoComplejo { String name;  String estructura; }
-	public Object visit(TipoComplejo node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "TipoComplejo", node, false);
-
-		print(indent + 1, "name", "String", node.getName());
-		print(indent + 1, "estructura", "String", node.getEstructura());
+		visit(indent + 1, "variablesdefinidas", "List<VariablesDefinidas>",node.getVariablesdefinidas());
 		return null;
 	}
 
@@ -167,15 +193,6 @@ public class ASTPrinter extends DefaultVisitor {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "TipoInt", node, true);
-
-		return null;
-	}
-
-	//	class TipoChar {  }
-	public Object visit(TipoChar node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "TipoChar", node, true);
 
 		return null;
 	}
@@ -189,119 +206,20 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Ident { String valor; }
-	public Object visit(Ident node, Object param) {
+	//	class TipoChar {  }
+	public Object visit(TipoChar node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printCompact(indent, "Ident", node, "valor", node.getValor());
+		printName(indent, "TipoChar", node, true);
+
 		return null;
 	}
 
-	//	class ArithmeticExpresion { Expresion l;  String op;  Expresion r; }
-	public Object visit(ArithmeticExpresion node, Object param) {
+	//	class TipoStruct { String nombre; }
+	public Object visit(TipoStruct node, Object param) {
 		int indent = ((Integer)param).intValue();
 
-		printName(indent, "ArithmeticExpresion", node, false);
-
-		visit(indent + 1, "l", "Expresion",node.getL());
-		print(indent + 1, "op", "String", node.getOp());
-		visit(indent + 1, "r", "Expresion",node.getR());
-		return null;
-	}
-
-	//	class ParamExpresion { List<String> parametro; }
-	public Object visit(ParamExpresion node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "ParamExpresion", node, false);
-
-		print(indent + 1, "parametro", "List<String>", node.getParametro());
-		return null;
-	}
-
-	//	class IfStatement { Expresion expr;  List<Sentencia> ifTrue;  List<Sentencia> ifFalse; }
-	public Object visit(IfStatement node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "IfStatement", node, false);
-
-		visit(indent + 1, "expr", "Expresion",node.getExpr());
-		visit(indent + 1, "ifTrue", "List<Sentencia>",node.getIfTrue());
-		visit(indent + 1, "ifFalse", "List<Sentencia>",node.getIfFalse());
-		return null;
-	}
-
-	//	class WhileStatement { Expresion expr;  List<Sentencia> code; }
-	public Object visit(WhileStatement node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "WhileStatement", node, false);
-
-		visit(indent + 1, "expr", "Expresion",node.getExpr());
-		visit(indent + 1, "code", "List<Sentencia>",node.getCode());
-		return null;
-	}
-
-	//	class Asignacion { Expresion left;  Expresion right; }
-	public Object visit(Asignacion node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "Asignacion", node, false);
-
-		visit(indent + 1, "left", "Expresion",node.getLeft());
-		visit(indent + 1, "right", "Expresion",node.getRight());
-		return null;
-	}
-
-	//	class PrintStatement { Expresion expr; }
-	public Object visit(PrintStatement node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "PrintStatement", node, false);
-
-		visit(indent + 1, "expr", "Expresion",node.getExpr());
-		return null;
-	}
-
-	//	class ReadStatement { Expresion expr; }
-	public Object visit(ReadStatement node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "ReadStatement", node, false);
-
-		visit(indent + 1, "expr", "Expresion",node.getExpr());
-		return null;
-	}
-
-	//	class ReturnStatement { Expresion expr; }
-	public Object visit(ReturnStatement node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "ReturnStatement", node, false);
-
-		visit(indent + 1, "expr", "Expresion",node.getExpr());
-		return null;
-	}
-
-	//	class LlamadaFunc { String nombre;  List<Expresion> params; }
-	public Object visit(LlamadaFunc node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "LlamadaFunc", node, false);
-
-		print(indent + 1, "nombre", "String", node.getNombre());
-		visit(indent + 1, "params", "List<Expresion>",node.getParams());
-		return null;
-	}
-
-	//	class LlamadaCampo { Expresion estructura;  String nombre; }
-	public Object visit(LlamadaCampo node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "LlamadaCampo", node, false);
-
-		visit(indent + 1, "estructura", "Expresion",node.getEstructura());
-		print(indent + 1, "nombre", "String", node.getNombre());
+		printCompact(indent, "TipoStruct", node, "nombre", node.getNombre());
 		return null;
 	}
 

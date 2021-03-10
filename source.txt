@@ -1,34 +1,5 @@
+scramble(biggin_hill:airbase, hawkhinge:airbase): Squadrons{
+  var hurricane: Avion;
+  var spitfire: Avion;
+}
 
-var me: int;
-var quiero: char;
-var morir: float;
-
-struct odio{
-	esto:float;
-	matame:char;
-};
-
-struct ya{};
-
-main( parametro:int) {
-  var por: int;
-  var favor: Persona;
-  de.verdad = 20;
-  read me.quiero.morir; 
-
-  alguien = 0;
-  while (me < 10) {
-    mate = ya + 1;
-  }
-
-main() {
-  var por: int;
-  var favor: Persona;
-
-  de.verdad = 20;
-  read me.quiero.morir; 
-
-  alguien = 0;
-  while (me < 10) {
-    mate = ya + 1;
-  }

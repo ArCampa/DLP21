@@ -1,28 +1,21 @@
 CATEGORIES
-definicion, tipo, sentencia, expresion
-
+definicion, tipo
 
 NODES
 programa -> definiciones:definicion*;
 
-tipoSimple:definicion -> name:string tipo;
-tipoStruct:definicion -> name:string defsNoVar:definicion*;
-tipoFuncion:definicion -> name:string params:definicion* returnType:tipo sentencias:sentencia*;
-tipoFuncionSinRetorno:definicion -> name:string params:definicion* sentencias:sentencia*;
-tipoComplejo:definicion -> name:string estructura:string;
+variableDefinida:definicion -> var:variable; 
+variable -> nombre:string tipado:tipo;
+
+estructuraDefinida:definicion -> nombre:string variables:variable*;
+variablesStruct -> variables:variable;
+
+metodoDefinido:definicion -> parametros:variable* retorno:tipo variablesDef:variableDefinida*;
+variablesParametros -> variables:variable*;
+returnTipo -> tipo;
+variablesDefinidas -> variablesDefinidas*;
 
 tipoInt:tipo -> ;
-tipoChar:tipo -> ;
 tipoFloat:tipo -> ;
-ident:expresion -> valor:string;
-arithmeticExpresion:expresion -> l:expresion op:string r:expresion;
-paramExpresion:expresion -> parametro:string*;
-
-ifStatement:sentencia -> expr:expresion ifTrue:sentencia* ifFalse:sentencia*;
-whileStatement:sentencia -> expr:expresion code:sentencia*;
-asignacion:sentencia -> left:expresion right:expresion;
-printStatement:sentencia -> expr:expresion;
-readStatement:sentencia -> expr:expresion;
-returnStatement:sentencia -> expr:expresion;
-llamadaFunc:expresion -> nombre:string params:expresion*;
-llamadaCampo:expresion -> estructura:expresion nombre:string;
+tipoChar:tipo -> ;
+tipoStruct:tipo -> nombre:string;
