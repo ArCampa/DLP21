@@ -298,7 +298,7 @@ public class GrammarParser extends Parser {
 			match(T__2);
 			setState(59);
 			((VariableContext)_localctx).tipo = tipo();
-			 ((VariableContext)_localctx).ast =  new Variable((((VariableContext)_localctx).IDENT!=null?((VariableContext)_localctx).IDENT.getText():null) , ((VariableContext)_localctx).tipo.ast);
+			 ((VariableContext)_localctx).ast =  new Variable(((VariableContext)_localctx).IDENT , ((VariableContext)_localctx).tipo.ast);
 					
 			}
 		}
@@ -367,7 +367,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(68);
 				((TipoContext)_localctx).IDENT = match(IDENT);
-				((TipoContext)_localctx).ast =  new TipoStruct((((TipoContext)_localctx).IDENT!=null?((TipoContext)_localctx).IDENT.getText():null));
+				((TipoContext)_localctx).ast =  new TipoStruct(((TipoContext)_localctx).IDENT);
 				}
 				break;
 			case T__6:
@@ -855,7 +855,7 @@ public class GrammarParser extends Parser {
 				{
 				setState(147);
 				((ExprContext)_localctx).IDENT = match(IDENT);
-				((ExprContext)_localctx).ast =  new ExpresionIdent((((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null));
+				((ExprContext)_localctx).ast =  new ExpresionIdent(((ExprContext)_localctx).IDENT);
 				}
 				break;
 			case 3:
@@ -1013,7 +1013,7 @@ public class GrammarParser extends Parser {
 						match(T__14);
 						setState(181);
 						((ExprContext)_localctx).IDENT = match(IDENT);
-						 ((ExprContext)_localctx).ast =  new ExpresionCampoStruct(((ExprContext)_localctx).prev.ast, (((ExprContext)_localctx).IDENT!=null?((ExprContext)_localctx).IDENT.getText():null));
+						 ((ExprContext)_localctx).ast =  new ExpresionCampoStruct(((ExprContext)_localctx).prev.ast, ((ExprContext)_localctx).IDENT);
 						          		
 						}
 						break;

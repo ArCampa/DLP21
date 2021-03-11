@@ -28,7 +28,7 @@ variableDefinida
 //para declarar en structs o componer variables definidas
 variable
 	returns[Variable ast]:
-	IDENT ':' tipo { $ast = new Variable($IDENT.text , $tipo.ast);
+	IDENT ':' tipo { $ast = new Variable($IDENT , $tipo.ast);
 		};
 //tipos que puede tener una variable o un retorno
 tipo
@@ -36,7 +36,7 @@ tipo
 	'int' {$ast = new TipoInt();}
 	| 'float' {$ast = new TipoFloat();}
 	| 'char' {$ast = new TipoChar();}
-	| IDENT {$ast = new TipoStruct($IDENT.text);}
+	| IDENT {$ast = new TipoStruct($IDENT);}
 	| dimensiones tipo {$ast = new TipoArray($dimensiones.list, $tipo.ast);};
 
 //para las dimesiones de los arrays
@@ -90,12 +90,12 @@ variablesDefinidas
 expr
 	returns[Expresion ast]:
 	'('expr')' {$ast = new ExpresionParentesis($expr.ast);}
-	| IDENT {$ast = new ExpresionIdent($IDENT.text);}
+	| IDENT {$ast = new ExpresionIdent($IDENT);}
 	| constante = (LITENT | LITREAL | CHAR) {$ast = new
 	ExpresionConstante($constante.text);}
 	| nombre = IDENT '(' parametrosPasados ')' {		
 	$ast = new ExpresionLlamadaMetodo($nombre.text, $parametrosPasados.list);}
-	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT.text);
+	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT);
 		} //no funcionaba sin asignar la variable expr
 	| expr dimensiones {$ast = new ExpresionArray($expr.ast, $dimensiones.list);}
 	| l = expr op = ('*' | '/') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
