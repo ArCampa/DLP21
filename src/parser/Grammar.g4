@@ -41,8 +41,8 @@ tipo
 
 //para las dimesiones de los arrays
 dimensiones
-	returns[List<String> list = new ArrayList<String>();]:
-	('[' num = (LITENT | IDENT) ']' {$list.add($num.text);})+;
+	returns[List<Expresion> list = new ArrayList<Expresion>();]:
+	('[' num = expr ']' {$list.add($num.ast);})+;
 
 //definicion de una estructura
 estructuraDefinida
@@ -126,7 +126,9 @@ sentencia
 	| sentenciaCondicional {$ast = $sentenciaCondicional.ast;}
 	| ('println' | 'printsp') expr ';' {$ast = new SentenciaPrint($expr.ast);}
 	| 'read' expr ';' {$ast = new SentenciaRead($expr.ast);}
-	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);};
+	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);}	
+	| ('println' | 'printsp')  ';' {$ast = new SentenciaPrintVoid();}
+	| 'return' expr ';' {$ast = new SentenciaReturnVoid();};
 
 //auxiliar para procesar sentencial condicionales, hecho para resolver problemas específicos
 sentenciaCondicional

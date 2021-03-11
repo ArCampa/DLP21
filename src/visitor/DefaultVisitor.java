@@ -34,8 +34,9 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class Dimensiones { List<String> dim; }
+	//	class Dimensiones { List<Expresion> dim; }
 	public Object visit(Dimensiones node, Object param) {
+		visitChildren(node.getDim(), param);
 		return null;
 	}
 
@@ -111,10 +112,11 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class ExpresionArray { Expresion nombreArray;  List<String> dim; }
+	//	class ExpresionArray { Expresion nombreArray;  List<Expresion> dim; }
 	public Object visit(ExpresionArray node, Object param) {
 		if (node.getNombreArray() != null)
 			node.getNombreArray().accept(this, param);
+		visitChildren(node.getDim(), param);
 		return null;
 	}
 
@@ -217,6 +219,16 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class SentenciaPrintVoid {  }
+	public Object visit(SentenciaPrintVoid node, Object param) {
+		return null;
+	}
+
+	//	class SentenciaReturnVoid {  }
+	public Object visit(SentenciaReturnVoid node, Object param) {
+		return null;
+	}
+
 	//	class TipoInt {  }
 	public Object visit(TipoInt node, Object param) {
 		return null;
@@ -237,8 +249,9 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
-	//	class TipoArray { List<String> dim;  Tipo type; }
+	//	class TipoArray { List<Expresion> dim;  Tipo type; }
 	public Object visit(TipoArray node, Object param) {
+		visitChildren(node.getDim(), param);
 		if (node.getType() != null)
 			node.getType().accept(this, param);
 		return null;

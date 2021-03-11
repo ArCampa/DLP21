@@ -9,22 +9,22 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	expresionArray:expresion -> nombreArray:expresion  dim:String*
+//	expresionArray:expresion -> nombreArray:expresion  dim:expresion*
 
 public class ExpresionArray extends AbstractExpresion {
 
-	public ExpresionArray(Expresion nombreArray, List<String> dim) {
+	public ExpresionArray(Expresion nombreArray, List<Expresion> dim) {
 		this.nombreArray = nombreArray;
 		this.dim = dim;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(nombreArray);
+       setPositions(nombreArray, dim);
 	}
 
 	public ExpresionArray(Object nombreArray, Object dim) {
 		this.nombreArray = (Expresion) getAST(nombreArray);
-		this.dim = getTextFromTokens(dim);
+		this.dim = this.<Expresion>getAstFromContexts(dim);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
@@ -38,10 +38,10 @@ public class ExpresionArray extends AbstractExpresion {
 		this.nombreArray = nombreArray;
 	}
 
-	public List<String> getDim() {
+	public List<Expresion> getDim() {
 		return dim;
 	}
-	public void setDim(List<String> dim) {
+	public void setDim(List<Expresion> dim) {
 		this.dim = dim;
 	}
 
@@ -51,7 +51,7 @@ public class ExpresionArray extends AbstractExpresion {
 	}
 
 	private Expresion nombreArray;
-	private List<String> dim;
+	private List<Expresion> dim;
 
 	public String toString() {
        return "{nombreArray:" + getNombreArray() + ", dim:" + getDim() + "}";
