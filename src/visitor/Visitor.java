@@ -36,6 +36,8 @@ public interface Visitor {
 	public Object visit(SentenciaPrint node, Object param);
 	public Object visit(SentenciaRead node, Object param);
 	public Object visit(SentenciaReturn node, Object param);
+	public Object visit(SentenciaPrintVoid node, Object param);
+	public Object visit(SentenciaReturnVoid node, Object param);
 	public Object visit(TipoInt node, Object param);
 	public Object visit(TipoFloat node, Object param);
 	public Object visit(TipoChar node, Object param);

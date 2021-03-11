@@ -9,21 +9,21 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	tipoArray:tipo -> dim:String*  type:tipo
+//	tipoArray:tipo -> dim:expresion*  type:tipo
 
 public class TipoArray extends AbstractTipo {
 
-	public TipoArray(List<String> dim, Tipo type) {
+	public TipoArray(List<Expresion> dim, Tipo type) {
 		this.dim = dim;
 		this.type = type;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(type);
+       setPositions(dim, type);
 	}
 
 	public TipoArray(Object dim, Object type) {
-		this.dim = getTextFromTokens(dim);
+		this.dim = this.<Expresion>getAstFromContexts(dim);
 		this.type = (Tipo) getAST(type);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -31,10 +31,10 @@ public class TipoArray extends AbstractTipo {
        setPositions(dim, type);
 	}
 
-	public List<String> getDim() {
+	public List<Expresion> getDim() {
 		return dim;
 	}
-	public void setDim(List<String> dim) {
+	public void setDim(List<Expresion> dim) {
 		this.dim = dim;
 	}
 
@@ -50,7 +50,7 @@ public class TipoArray extends AbstractTipo {
 		return v.visit(this, param);
 	}
 
-	private List<String> dim;
+	private List<Expresion> dim;
 	private Tipo type;
 
 	public String toString() {

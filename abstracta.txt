@@ -6,7 +6,7 @@ programa -> definiciones:definicion*;
 
 variableDefinida:definicion -> var:variable; 
 variable -> nombre:string tipado:tipo;
-dimensiones -> dim:string*;
+dimensiones -> dim:expresion*;
 
 estructuraDefinida:definicion -> nombre:string variables:variable*;
 variablesStruct -> variables:variable;
@@ -21,7 +21,7 @@ expresionIdent:expresion -> identificador:string;
 expresionConstante:expresion -> constante:string;
 expresionLlamadaMetodo:expresion -> nombre:string parametros:expresion*;
 expresionCampoStruct:expresion -> nombreStruct:expresion campo:string;
-expresionArray:expresion -> nombreArray:expresion dim:string*;
+expresionArray:expresion -> nombreArray:expresion dim:expresion*;
 expresionAritmetica:expresion -> l:expresion op:string r:expresion;
 expresionLogica:expresion -> l:expresion op:string r:expresion;
 parametrosPasados -> params:expresion*;
@@ -36,9 +36,11 @@ sentenciaCondicional -> condicional:sentencia;
 sentenciaPrint:sentencia -> expr:expresion;
 sentenciaRead:sentencia -> expr:expresion;
 sentenciaReturn:sentencia -> expr:expresion;
+sentenciaPrintVoid:sentencia -> ;
+sentenciaReturnVoid:sentencia -> ;
 
 tipoInt:tipo -> ;
 tipoFloat:tipo -> ;
 tipoChar:tipo -> ;
 tipoStruct:tipo -> nombre:string;
-tipoArray:tipo -> dim:string* type:tipo;
+tipoArray:tipo -> dim:expresion* type:tipo;
