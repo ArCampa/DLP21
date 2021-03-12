@@ -16,12 +16,14 @@ variablesParametros -> variables:variable*;
 returnTipo -> tipo;
 variablesDefinidas -> variablesDefinidas*;
 
+arrayDefinido -> nombre:string type:tipo;
+
 expresionParentesis:expresion -> expr:expresion;
 expresionIdent:expresion -> identificador:string;
 expresionConstante:expresion -> constante:string;
 expresionLlamadaMetodo:expresion -> nombre:string parametros:expresion*;
 expresionCampoStruct:expresion -> nombreStruct:expresion campo:string;
-expresionArray:expresion -> nombreArray:expresion dim:expresion*;
+expresionArray:expresion -> id:expresion pos:expresion;
 expresionAritmetica:expresion -> l:expresion op:string r:expresion;
 expresionLogica:expresion -> l:expresion op:string r:expresion;
 parametrosPasados -> params:expresion*;
@@ -43,4 +45,4 @@ tipoInt:tipo -> ;
 tipoFloat:tipo -> ;
 tipoChar:tipo -> ;
 tipoStruct:tipo -> nombre:string;
-tipoArray:tipo -> dim:expresion* type:tipo;
+tipoArray:tipo -> dim:expresion type:tipo;

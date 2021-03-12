@@ -21,10 +21,6 @@ variableDefinida
 	returns[Definicion ast]:
 	'var' variable {$ast = new VariableDefinida($variable.ast);} ';';
 
-//descomentar para arrays variable[List<int> list = new ArrayList<int>()] //para declarar en structs
-// o componer variables definidas returns[Variable ast]: IDENT ':' ('[' LITENT ']' {
-// $list.add($LITENT); })*? tipo ';' { $ast = new Variable($IDENT, $list, $tipo.ast) };
-
 //para declarar en structs o componer variables definidas
 variable
 	returns[Variable ast]:
@@ -37,12 +33,15 @@ tipo
 	| 'float' {$ast = new TipoFloat();}
 	| 'char' {$ast = new TipoChar();}
 	| IDENT {$ast = new TipoStruct($IDENT);}
-	| dimensiones tipo {$ast = new TipoArray($dimensiones.list, $tipo.ast);};
+	| '[' num = expr ']' tipo {$ast = new TipoArray($num.ast, $tipo.ast);};
 
-//para las dimesiones de los arrays
-dimensiones
-	returns[List<Expresion> list = new ArrayList<Expresion>();]:
-	('[' num = expr ']' {$list.add($num.ast);})+;
+//array, tipo puede ser [num] tipo, que puede ser [num] tipo #recursividad
+arrayDefinido
+	returns[ArrayDefinido ast]:
+	'var' IDENT ':' tipo {$ast = new ArrayDefinido($IDENT, $tipo.ast);};
+
+// //para las dimesiones de los arrays dimensiones returns[List<Expresion> list = new
+// ArrayList<Expresion>();]: ('[' num = expr ']' {$list.add($num.ast);})+;
 
 //definicion de una estructura
 estructuraDefinida
@@ -89,7 +88,7 @@ variablesDefinidas
 //expresiones, para comprobar cosas, asignar cosas, etc 
 expr
 	returns[Expresion ast]:
-	'('expr')' {$ast = new ExpresionParentesis($expr.ast);}
+	'(' expr ')' {$ast = new ExpresionParentesis($expr.ast);}
 	| IDENT {$ast = new ExpresionIdent($IDENT);}
 	| constante = (LITENT | LITREAL | CHAR) {$ast = new
 	ExpresionConstante($constante.text);}
@@ -97,7 +96,7 @@ expr
 	$ast = new ExpresionLlamadaMetodo($nombre.text, $parametrosPasados.list);}
 	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT);
 		} //no funcionaba sin asignar la variable expr
-	| expr dimensiones {$ast = new ExpresionArray($expr.ast, $dimensiones.list);}
+	| id = expr '[' pos = expr ']' {$ast = new ExpresionArray($id.ast, $pos.ast);}
 	| l = expr op = ('*' | '/') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
 		}
 	| l = expr op = ('+' | '-') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
@@ -126,8 +125,8 @@ sentencia
 	| sentenciaCondicional {$ast = $sentenciaCondicional.ast;}
 	| ('println' | 'printsp') expr ';' {$ast = new SentenciaPrint($expr.ast);}
 	| 'read' expr ';' {$ast = new SentenciaRead($expr.ast);}
-	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);}	
-	| ('println' | 'printsp')  ';' {$ast = new SentenciaPrintVoid();}
+	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);}
+	| ('println' | 'printsp') ';' {$ast = new SentenciaPrintVoid();}
 	| 'return' expr ';' {$ast = new SentenciaReturnVoid();};
 
 //auxiliar para procesar sentencial condicionales, hecho para resolver problemas específicos
