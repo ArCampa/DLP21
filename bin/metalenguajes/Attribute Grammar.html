@@ -48,11 +48,11 @@
         </tr>
 <tr><td><span class="nodo">programa</span>&nbsp;&rarr;  <span class="nombreAtt">definiciones</span><span class="tipoAtt">:definicion*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">variable</span>&nbsp;&rarr;  <span class="nombreAtt">nombre</span><span class="tipoAtt">:String</span> <span class="nombreAtt">tipado</span><span class="tipoAtt">:tipo</span></td><td></td><td></td></tr>
-<tr><td><span class="nodo">dimensiones</span>&nbsp;&rarr;  <span class="nombreAtt">dim</span><span class="tipoAtt">:expresion*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">variablesStruct</span>&nbsp;&rarr;  <span class="nombreAtt">variables</span><span class="tipoAtt">:variable</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">variablesParametros</span>&nbsp;&rarr;  <span class="nombreAtt">variables</span><span class="tipoAtt">:variable*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">returnTipo</span>&nbsp;&rarr;  <span class="nombreAtt">tipo</span><span class="tipoAtt">:tipo</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">variablesDefinidas</span>&nbsp;&rarr;  <span class="nombreAtt">variablesdefinidas</span><span class="tipoAtt">:variablesDefinidas*</span></td><td></td><td></td></tr>
+<tr><td><span class="nodo">arrayDefinido</span>&nbsp;&rarr;  <span class="nombreAtt">nombre</span><span class="tipoAtt">:String</span> <span class="nombreAtt">type</span><span class="tipoAtt">:tipo</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">parametrosPasados</span>&nbsp;&rarr;  <span class="nombreAtt">params</span><span class="tipoAtt">:expresion*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">sentencias</span>&nbsp;&rarr;  <span class="nombreAtt">list</span><span class="tipoAtt">:sentencia*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">sentenciaCondicional</span>&nbsp;&rarr;  <span class="nombreAtt">condicional</span><span class="tipoAtt">:sentencia</span></td><td></td><td></td></tr>
@@ -68,7 +68,7 @@
 <tr><td><span class="nodo">expresionConstante</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">constante</span><span class="tipoAtt">:String</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">expresionLlamadaMetodo</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">nombre</span><span class="tipoAtt">:String</span> <span class="nombreAtt">parametros</span><span class="tipoAtt">:expresion*</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">expresionCampoStruct</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">nombreStruct</span><span class="tipoAtt">:expresion</span> <span class="nombreAtt">campo</span><span class="tipoAtt">:String</span></td><td></td><td></td></tr>
-<tr><td><span class="nodo">expresionArray</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">nombreArray</span><span class="tipoAtt">:expresion</span> <span class="nombreAtt">dim</span><span class="tipoAtt">:expresion*</span></td><td></td><td></td></tr>
+<tr><td><span class="nodo">expresionArray</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">id</span><span class="tipoAtt">:expresion</span> <span class="nombreAtt">pos</span><span class="tipoAtt">:expresion</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">expresionAritmetica</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">l</span><span class="tipoAtt">:expresion</span> <span class="nombreAtt">op</span><span class="tipoAtt">:String</span> <span class="nombreAtt">r</span><span class="tipoAtt">:expresion</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">expresionLogica</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">l</span><span class="tipoAtt">:expresion</span> <span class="nombreAtt">op</span><span class="tipoAtt">:String</span> <span class="nombreAtt">r</span><span class="tipoAtt">:expresion</span></td><td></td><td></td></tr>
 <tr><td><span class="nodo">expresionCast</span>:<span class="categoria">expresion</span>&nbsp;&rarr;  <span class="nombreAtt">type</span><span class="tipoAtt">:tipo</span> <span class="nombreAtt">ex</span><span class="tipoAtt">:expresion</span></td><td></td><td></td></tr>
@@ -90,7 +90,7 @@
 <tr><td><span class="nodo">tipoFloat</span>:<span class="categoria">tipo</span>&nbsp;&rarr; &lambda;</td><td></td><td></td></tr>
 <tr><td><span class="nodo">tipoChar</span>:<span class="categoria">tipo</span>&nbsp;&rarr; &lambda;</td><td></td><td></td></tr>
 <tr><td><span class="nodo">tipoStruct</span>:<span class="categoria">tipo</span>&nbsp;&rarr;  <span class="nombreAtt">nombre</span><span class="tipoAtt">:String</span></td><td></td><td></td></tr>
-<tr><td><span class="nodo">tipoArray</span>:<span class="categoria">tipo</span>&nbsp;&rarr;  <span class="nombreAtt">dim</span><span class="tipoAtt">:expresion*</span> <span class="nombreAtt">type</span><span class="tipoAtt">:tipo</span></td><td></td><td></td></tr>
+<tr><td><span class="nodo">tipoArray</span>:<span class="categoria">tipo</span>&nbsp;&rarr;  <span class="nombreAtt">dim</span><span class="tipoAtt">:int</span> <span class="nombreAtt">type</span><span class="tipoAtt">:tipo</span></td><td></td><td></td></tr>
 <tr><td>&nbsp;</td><td></td><td></td></tr>
 
 

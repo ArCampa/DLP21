@@ -4,45 +4,44 @@
 
 package ast;
 
-import java.util.*;
 import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	expresionArray:expresion -> nombreArray:expresion  dim:expresion*
+//	expresionArray:expresion -> id:expresion  pos:expresion
 
 public class ExpresionArray extends AbstractExpresion {
 
-	public ExpresionArray(Expresion nombreArray, List<Expresion> dim) {
-		this.nombreArray = nombreArray;
-		this.dim = dim;
+	public ExpresionArray(Expresion id, Expresion pos) {
+		this.id = id;
+		this.pos = pos;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(nombreArray, dim);
+       setPositions(id, pos);
 	}
 
-	public ExpresionArray(Object nombreArray, Object dim) {
-		this.nombreArray = (Expresion) getAST(nombreArray);
-		this.dim = this.<Expresion>getAstFromContexts(dim);
+	public ExpresionArray(Object id, Object pos) {
+		this.id = (Expresion) getAST(id);
+		this.pos = (Expresion) getAST(pos);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(nombreArray, dim);
+       setPositions(id, pos);
 	}
 
-	public Expresion getNombreArray() {
-		return nombreArray;
+	public Expresion getId() {
+		return id;
 	}
-	public void setNombreArray(Expresion nombreArray) {
-		this.nombreArray = nombreArray;
+	public void setId(Expresion id) {
+		this.id = id;
 	}
 
-	public List<Expresion> getDim() {
-		return dim;
+	public Expresion getPos() {
+		return pos;
 	}
-	public void setDim(List<Expresion> dim) {
-		this.dim = dim;
+	public void setPos(Expresion pos) {
+		this.pos = pos;
 	}
 
 	@Override
@@ -50,10 +49,10 @@ public class ExpresionArray extends AbstractExpresion {
 		return v.visit(this, param);
 	}
 
-	private Expresion nombreArray;
-	private List<Expresion> dim;
+	private Expresion id;
+	private Expresion pos;
 
 	public String toString() {
-       return "{nombreArray:" + getNombreArray() + ", dim:" + getDim() + "}";
+       return "{id:" + getId() + ", pos:" + getPos() + "}";
    }
 }

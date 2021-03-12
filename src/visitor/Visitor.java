@@ -10,13 +10,13 @@ public interface Visitor {
 	public Object visit(Programa node, Object param);
 	public Object visit(VariableDefinida node, Object param);
 	public Object visit(Variable node, Object param);
-	public Object visit(Dimensiones node, Object param);
 	public Object visit(EstructuraDefinida node, Object param);
 	public Object visit(VariablesStruct node, Object param);
 	public Object visit(MetodoDefinido node, Object param);
 	public Object visit(VariablesParametros node, Object param);
 	public Object visit(ReturnTipo node, Object param);
 	public Object visit(VariablesDefinidas node, Object param);
+	public Object visit(ArrayDefinido node, Object param);
 	public Object visit(ExpresionParentesis node, Object param);
 	public Object visit(ExpresionIdent node, Object param);
 	public Object visit(ExpresionConstante node, Object param);

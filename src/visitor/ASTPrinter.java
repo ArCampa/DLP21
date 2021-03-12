@@ -125,16 +125,6 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class Dimensiones { List<Expresion> dim; }
-	public Object visit(Dimensiones node, Object param) {
-		int indent = ((Integer)param).intValue();
-
-		printName(indent, "Dimensiones", node, false);
-
-		visit(indent + 1, "dim", "List<Expresion>",node.getDim());
-		return null;
-	}
-
 	//	class EstructuraDefinida { String nombre;  List<Variable> variables; }
 	public Object visit(EstructuraDefinida node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -199,6 +189,17 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class ArrayDefinido { String nombre;  Tipo type; }
+	public Object visit(ArrayDefinido node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ArrayDefinido", node, false);
+
+		print(indent + 1, "nombre", "String", node.getNombre());
+		visit(indent + 1, "type", "Tipo",node.getType());
+		return null;
+	}
+
 	//	class ExpresionParentesis { Expresion expr; }
 	public Object visit(ExpresionParentesis node, Object param) {
 		int indent = ((Integer)param).intValue();
@@ -247,14 +248,14 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class ExpresionArray { Expresion nombreArray;  List<Expresion> dim; }
+	//	class ExpresionArray { Expresion id;  Expresion pos; }
 	public Object visit(ExpresionArray node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "ExpresionArray", node, false);
 
-		visit(indent + 1, "nombreArray", "Expresion",node.getNombreArray());
-		visit(indent + 1, "dim", "List<Expresion>",node.getDim());
+		visit(indent + 1, "id", "Expresion",node.getId());
+		visit(indent + 1, "pos", "Expresion",node.getPos());
 		return null;
 	}
 
@@ -461,13 +462,13 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
-	//	class TipoArray { List<Expresion> dim;  Tipo type; }
+	//	class TipoArray { int dim;  Tipo type; }
 	public Object visit(TipoArray node, Object param) {
 		int indent = ((Integer)param).intValue();
 
 		printName(indent, "TipoArray", node, false);
 
-		visit(indent + 1, "dim", "List<Expresion>",node.getDim());
+		print(indent + 1, "dim", "int", node.getDim());
 		visit(indent + 1, "type", "Tipo",node.getType());
 		return null;
 	}

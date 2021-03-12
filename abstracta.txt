@@ -6,7 +6,6 @@ programa -> definiciones:definicion*;
 
 variableDefinida:definicion -> var:variable; 
 variable -> nombre:string tipado:tipo;
-dimensiones -> dim:expresion*;
 
 estructuraDefinida:definicion -> nombre:string variables:variable*;
 variablesStruct -> variables:variable;
@@ -46,4 +45,4 @@ tipoInt:tipo -> ;
 tipoFloat:tipo -> ;
 tipoChar:tipo -> ;
 tipoStruct:tipo -> nombre:string;
-tipoArray:tipo -> dim:expresion type:tipo;
+tipoArray:tipo -> dim:int type:tipo;

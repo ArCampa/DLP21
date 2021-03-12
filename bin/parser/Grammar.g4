@@ -33,7 +33,7 @@ tipo
 	| 'float' {$ast = new TipoFloat();}
 	| 'char' {$ast = new TipoChar();}
 	| IDENT {$ast = new TipoStruct($IDENT);}
-	| '[' num = expr ']' tipo {$ast = new TipoArray($num.ast, $tipo.ast);};
+	| '[' LITENT ']' tipo {$ast = new TipoArray(LITENT, $tipo.ast);};
 
 //array, tipo puede ser [num] tipo, que puede ser [num] tipo #recursividad
 arrayDefinido
@@ -92,6 +92,7 @@ expr
 	| IDENT {$ast = new ExpresionIdent($IDENT);}
 	| constante = (LITENT | LITREAL | CHAR) {$ast = new
 	ExpresionConstante($constante.text);}
+	| '<' tipo '>' expr { $ast = new ExpresionCast($tipo.ast, $expr.ast);}
 	| nombre = IDENT '(' parametrosPasados ')' {		
 	$ast = new ExpresionLlamadaMetodo($nombre.text, $parametrosPasados.list);}
 	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT);
@@ -124,10 +125,10 @@ sentencia
 	| l = expr '=' r = expr ';' {$ast = new SentenciaAsignacion( $l.ast, $r.ast);}
 	| sentenciaCondicional {$ast = $sentenciaCondicional.ast;}
 	| ('println' | 'printsp') expr ';' {$ast = new SentenciaPrint($expr.ast);}
-	| 'read' expr ';' {$ast = new SentenciaRead($expr.ast);}
+	| 'read' expr';' {$ast = new SentenciaRead($expr.ast);}
 	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);}
 	| ('println' | 'printsp') ';' {$ast = new SentenciaPrintVoid();}
-	| 'return' expr ';' {$ast = new SentenciaReturnVoid();};
+	| 'return' ';' {$ast = new SentenciaReturnVoid();};
 
 //auxiliar para procesar sentencial condicionales, hecho para resolver problemas específicos
 sentenciaCondicional

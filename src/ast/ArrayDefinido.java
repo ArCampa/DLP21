@@ -8,12 +8,12 @@ import org.antlr.v4.runtime.*;
 
 import visitor.*;
 
-//	tipoArray:tipo -> dim:int  type:tipo
+//	arrayDefinido -> nombre:String  type:tipo
 
-public class TipoArray extends AbstractTipo {
+public class ArrayDefinido extends AbstractAST  {
 
-	public TipoArray(int dim, Tipo type) {
-		this.dim = dim;
+	public ArrayDefinido(String nombre, Tipo type) {
+		this.nombre = nombre;
 		this.type = type;
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
@@ -21,20 +21,20 @@ public class TipoArray extends AbstractTipo {
        setPositions(type);
 	}
 
-	public TipoArray(Object dim, Object type) {
-		this.dim = (dim instanceof Token) ? Integer.parseInt(((Token)dim).getText()) : (Integer) dim;
+	public ArrayDefinido(Object nombre, Object type) {
+		this.nombre = (nombre instanceof Token) ? ((Token)nombre).getText() : (String) nombre;
 		this.type = (Tipo) getAST(type);
 
        // Lo siguiente se puede borrar si no se quiere la posicion en el fichero.
        // Obtiene la linea/columna a partir de las de los hijos.
-       setPositions(dim, type);
+       setPositions(nombre, type);
 	}
 
-	public int getDim() {
-		return dim;
+	public String getNombre() {
+		return nombre;
 	}
-	public void setDim(int dim) {
-		this.dim = dim;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Tipo getType() {
@@ -49,10 +49,10 @@ public class TipoArray extends AbstractTipo {
 		return v.visit(this, param);
 	}
 
-	private int dim;
+	private String nombre;
 	private Tipo type;
 
 	public String toString() {
-       return "{dim:" + getDim() + ", type:" + getType() + "}";
+       return "{nombre:" + getNombre() + ", type:" + getType() + "}";
    }
 }
