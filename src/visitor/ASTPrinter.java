@@ -282,6 +282,17 @@ public class ASTPrinter extends DefaultVisitor {
 		return null;
 	}
 
+	//	class ExpresionCast { Tipo type;  Expresion ex; }
+	public Object visit(ExpresionCast node, Object param) {
+		int indent = ((Integer)param).intValue();
+
+		printName(indent, "ExpresionCast", node, false);
+
+		visit(indent + 1, "type", "Tipo",node.getType());
+		visit(indent + 1, "ex", "Expresion",node.getEx());
+		return null;
+	}
+
 	//	class ParametrosPasados { List<Expresion> params; }
 	public Object visit(ParametrosPasados node, Object param) {
 		int indent = ((Integer)param).intValue();

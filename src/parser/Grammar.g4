@@ -89,7 +89,7 @@ variablesDefinidas
 //expresiones, para comprobar cosas, asignar cosas, etc 
 expr
 	returns[Expresion ast]:
-	'('expr')' {$ast = new ExpresionParentesis($expr.ast);}
+	'(' expr ')' {$ast = new ExpresionParentesis($expr.ast);}
 	| IDENT {$ast = new ExpresionIdent($IDENT);}
 	| constante = (LITENT | LITREAL | CHAR) {$ast = new
 	ExpresionConstante($constante.text);}
@@ -97,7 +97,8 @@ expr
 	$ast = new ExpresionLlamadaMetodo($nombre.text, $parametrosPasados.list);}
 	| prev = expr '.' IDENT { $ast = new ExpresionCampoStruct($prev.ast, $IDENT);
 		} //no funcionaba sin asignar la variable expr
-	| expr dimensiones {$ast = new ExpresionArray($expr.ast, $dimensiones.list);}
+	| ex = expr dimensiones {$ast = new ExpresionArray($ex.ast, $dimensiones.list);}
+	| '<' tipo '>' ex = expr {$ast = new ExpresionCast($tipo.ast, $ex.ast);}
 	| l = expr op = ('*' | '/') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
 		}
 	| l = expr op = ('+' | '-') r = expr {$ast = new ExpresionAritmetica($l.ast, $op.text, $r.ast); 
@@ -124,11 +125,11 @@ sentencia
 	expr ';' {$ast = new SentenciaExpresion($expr.ast); }
 	| l = expr '=' r = expr ';' {$ast = new SentenciaAsignacion( $l.ast, $r.ast);}
 	| sentenciaCondicional {$ast = $sentenciaCondicional.ast;}
+	| ('println' | 'printsp') ';' {$ast = new SentenciaPrintVoid();}
+	| 'return' ';' {$ast = new SentenciaReturnVoid();}
 	| ('println' | 'printsp') expr ';' {$ast = new SentenciaPrint($expr.ast);}
 	| 'read' expr ';' {$ast = new SentenciaRead($expr.ast);}
-	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);}	
-	| ('println' | 'printsp')  ';' {$ast = new SentenciaPrintVoid();}
-	| 'return' expr ';' {$ast = new SentenciaReturnVoid();};
+	| 'return' expr ';' {$ast = new SentenciaReturn($expr.ast);};
 
 //auxiliar para procesar sentencial condicionales, hecho para resolver problemas específicos
 sentenciaCondicional

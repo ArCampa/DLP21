@@ -138,6 +138,15 @@ public class DefaultVisitor implements Visitor {
 		return null;
 	}
 
+	//	class ExpresionCast { Tipo type;  Expresion ex; }
+	public Object visit(ExpresionCast node, Object param) {
+		if (node.getType() != null)
+			node.getType().accept(this, param);
+		if (node.getEx() != null)
+			node.getEx().accept(this, param);
+		return null;
+	}
+
 	//	class ParametrosPasados { List<Expresion> params; }
 	public Object visit(ParametrosPasados node, Object param) {
 		visitChildren(node.getParams(), param);

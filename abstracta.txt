@@ -24,6 +24,7 @@ expresionCampoStruct:expresion -> nombreStruct:expresion campo:string;
 expresionArray:expresion -> nombreArray:expresion dim:expresion*;
 expresionAritmetica:expresion -> l:expresion op:string r:expresion;
 expresionLogica:expresion -> l:expresion op:string r:expresion;
+expresionCast:expresion -> type:tipo ex:expresion;
 parametrosPasados -> params:expresion*;
 
 sentenciaExpresion:sentencia -> expr:expresion;

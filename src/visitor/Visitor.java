@@ -25,6 +25,7 @@ public interface Visitor {
 	public Object visit(ExpresionArray node, Object param);
 	public Object visit(ExpresionAritmetica node, Object param);
 	public Object visit(ExpresionLogica node, Object param);
+	public Object visit(ExpresionCast node, Object param);
 	public Object visit(ParametrosPasados node, Object param);
 	public Object visit(SentenciaExpresion node, Object param);
 	public Object visit(SentenciaAsignacion node, Object param);
